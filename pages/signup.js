@@ -14,7 +14,8 @@ import {
     FormErrorMessage,
     FormHelperText,
     Input, 
-    Box
+    Box,
+    Center
 } from '@chakra-ui/react'
 
 const Home = () => {
@@ -30,7 +31,7 @@ const Home = () => {
         </Head>
         
         <main>
-          <Grid templateColumns='repeat(3, 1fr)' gap={0}>
+          <Grid templateColumns='repeat(3, 1fr)' w={{ base: '90%', sm: '98%', md: '100%' }} marginLeft="auto" marginRight="auto" gap={0}>
             <GridItem  
                 colSpan={1} 
                 display={{ base: 'none', md: 'block' }} 
@@ -53,7 +54,7 @@ const Home = () => {
                             width: "73%"
                         }}
                     >
-                        A few clicks away from starting your budgetting today
+                        A few clicks away from starting your budgeting today
                     </p>
                     <Box
                         marginTop="35px"
@@ -67,50 +68,55 @@ const Home = () => {
             </GridItem>
   
             <GridItem colSpan={{base: 3, md: 2}} bg = "white">
-                <Box marginLeft="130px">
-                    <Box marginTop = "90px">
+                <Box marginLeft={{base: "", sm: "130px"}}>
+                    <Box marginTop={{base: "20px", sm: "80px"}}>
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Register</h1>
                         <p style={{fontSize: "20px", fontWeight: "bold", marginTop: "30px"}}>Manage your budget with ease</p>
                         <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let's get you started so that you can verify your account and begin budgeting today.</p>
                     </Box>
-                    <form style={{marginTop: "30px", width: "75%"}}>
-                        <Box style={{display:"flex", width: "100%"}}>
-                            <FormControl width = "49%">
-                                <FormLabel>First Name</FormLabel>
-                                <Input id='name' type='name' />
-                            </FormControl>
-                            <FormControl width = "49%" marginLeft = "1%">
-                                <FormLabel>Last Name</FormLabel>
-                                <Input id='name' type='name' />
-                            </FormControl>
+                    <form>
+                        <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>
+                            <Box display="flex" width="100%">
+                                <FormControl width = "49%">
+                                    <FormLabel>First Name</FormLabel>
+                                    <Input id='name' type='name' />
+                                </FormControl>
+                                <FormControl width = "49%" marginLeft = "2%">
+                                    <FormLabel>Last Name</FormLabel>
+                                    <Input id='name' type='name' />
+                                </FormControl>
+                            </Box>
+                            <Box width="100%">
+                                <FormControl marginTop="15px">
+                                    <FormLabel htmlFor='email'>Email</FormLabel>
+                                    <Input id='email' type='email' />
+                                </FormControl>
+                                
+                                <FormControl marginTop="15px">
+                                    <FormLabel htmlFor='password'>Password</FormLabel>
+                                    <Input id='password' type='password' />
+                                </FormControl>
+                                <FormControl marginTop="15px">
+                                    <FormLabel htmlFor='password'>Confirm Password</FormLabel>
+                                    <Input id='password' type='password' />
+                                </FormControl>
+                                
+                            </Box>
                         </Box>
-                        <Box>
-                            <FormControl>
-                                <FormLabel htmlFor='email'>Email</FormLabel>
-                                <Input id='email' type='email' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel htmlFor='password'>Password</FormLabel>
-                                <Input id='password' type='password' />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel htmlFor='password'>Confirm Password</FormLabel>
-                                <Input id='password' type='password' />
-                            </FormControl>
-                            
-                        </Box>
-                        
                     </form>
                     <Button 
                         color="#FFFFFF"
                         bg="#0ACF83"
-                        width='30%'
+                        width={{base: "50%", md: "30%"}}
                         _hover={{ color: '#FFFFFF', bg: "#0ACF83"}}
                         marginTop="20px"
                     >
                         Create Account
                     </Button>
-                    <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "20px", color: "grey", width: "70%"}}>Already have an account? <Link href="/login"><a style={{color: "blue"}}>Log In</a></Link></p>
+                    <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
+                        <p>Already have an account? <Link href="/login"><a style={{color: "blue"}}>Log In</a></Link></p>
+                    </Box>
+                    
 
                 </Box>
                 

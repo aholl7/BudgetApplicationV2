@@ -17,6 +17,11 @@ import {
 } from '@chakra-ui/react';
 
 const Home = () => {
+  const openSignUp = (e) => {
+    e.preventDefault();
+    const url = "/signup";
+    window.location.href = url;
+  }
   useEffect(()=>{
     document.body.style.backgroundColor = "#221266";
   },[]);
@@ -59,6 +64,7 @@ const Home = () => {
                 height='40px'
                 _hover={{ color: '#0ACF83', bg: "#FFFFFF"}}
                 marginRight={{base: "0px", md: "100px"}}
+                onClick={(e) => openSignUp(e)}
               >
                 Sign Up
               </Button>
@@ -100,6 +106,7 @@ const Home = () => {
                 width='70%'
                 _hover={{ color: '#0ACF83', bg: "#FFFFFF"}}
                 marginTop="20px"
+                onClick={(e) => openSignUp(e)}
               >
                 Start Budgeting Today
               </Button>
