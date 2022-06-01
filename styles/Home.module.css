@@ -108,6 +108,11 @@
   margin-left: 0.5rem;
 }
 
+.homeContent {
+  background-color: #221266;
+}
+
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
