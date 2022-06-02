@@ -72,7 +72,7 @@ const SignUp = () => {
                     <Box marginTop={{base: "20px", sm: "80px"}}>
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Register</h1>
                         <p style={{fontSize: "20px", fontWeight: "bold", marginTop: "30px"}}>Manage your budget with ease</p>
-                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let"s get you started so that you can verify your account and begin budgeting today.</p>
+                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let&apos;s get you started so that you can verify your account and begin budgeting today.</p>
                     </Box>
                     <form>
                         <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>

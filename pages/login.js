@@ -100,7 +100,7 @@ const Login = () => {
                         Login
                     </Button>
                     <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
-                        <p>Don"t have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
+                        <p>Don&apos;t have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
                     </Box>
                     
 
