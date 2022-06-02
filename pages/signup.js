@@ -16,11 +16,66 @@ import {
     Input, 
     Box,
     Center
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import {
+    collection,
+    addDoc,
+    query,
+    where,
+    getDocs,
+    setDoc,
+    doc,
+  } from  "firebase/firestore";
+  import { db } from "../js/firebase.js";
 
 const SignUp = () => {
-    useEffect(()=>{
+    const {
+        register,
+        watch,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({});
+      const password = watch("password");
+
+      const submitInfo = async (data) => {
+          await addDoc(collection(db, "cities"), {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+          });
+
+       /*
+        try {
+          const user = createUserWithEmailAndPassword(
+            auth,
+            data.email,
+            data.password
+          ).then(() => {
+            verifyEmail();
+            //const ref = collection(db, "users");
+            try {
+              const auth = getAuth();
+              const user = auth.currentUser;
+              const docRef = setDoc(doc(db, "users", user.uid), {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email
+              });
+            } catch (e) {
+              console.error("Error adding document: ", e);
+            }
+          });
+        } catch (error) {
+          window.alert(error.message);
+        }
+        auth.signOut();*/
+        
+      }
+
       
+
+    useEffect(()=>{
     },[]);
     return (
       <div>
@@ -69,50 +124,123 @@ const SignUp = () => {
   
             <GridItem colSpan={{base: 3, md: 2}} bg = "white">
                 <Box marginLeft={{base: "", sm: "130px"}}>
-                    <Box marginTop={{base: "20px", sm: "80px"}}>
+                    <Box marginTop={{base: "20px", sm: "60px"}}>
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Register</h1>
                         <p style={{fontSize: "20px", fontWeight: "bold", marginTop: "30px"}}>Manage your budget with ease</p>
                         <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let&apos;s get you started so that you can verify your account and begin budgeting today.</p>
                     </Box>
-                    <form>
+                    <form onSubmit={handleSubmit(submitInfo)}>
                         <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>
                             <Box display="flex" width="100%">
-                                <FormControl width = "49%">
+                                <FormControl width = "49%" isInvalid={errors.firstName}>
                                     <FormLabel>First Name</FormLabel>
-                                    <Input id="name" type="name" />
+                                    <Input 
+                                        id="firstName" 
+                                        type="name" 
+                                        {...register("firstName", {
+                                            required: "Required Field",
+                                            pattern: {
+                                              value: /^[A-Z]([-']?[a-z]+)*$/,
+                                              message: "Please enter valid first name",
+                                            },
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.firstName && errors.firstName.message}
+                                    </FormErrorMessage>
                                 </FormControl>
-                                <FormControl width = "49%" marginLeft = "2%">
+                                <FormControl width = "49%" marginLeft = "2%" isInvalid={errors.firstName}>
                                     <FormLabel>Last Name</FormLabel>
-                                    <Input id="name" type="name" />
+                                    <Input 
+                                        id="name" 
+                                        type="name"
+                                        {...register("lastName", {
+                                            required: "Required Field",
+                                            pattern: {
+                                              value: /^[A-Z]([-']?[a-z]+)*$/,
+                                              message: "Please enter valid last name",
+                                            },
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.lastName && errors.lastName.message}
+                                    </FormErrorMessage>
                                 </FormControl>
                             </Box>
                             <Box width="100%">
-                                <FormControl marginTop="15px">
+                                <FormControl marginTop="15px" isInvalid={errors.email}>
                                     <FormLabel>Email</FormLabel>
-                                    <Input id="email" type="email" />
+                                    <Input 
+                                        id="email" 
+                                        type="email" 
+                                        {...register("email", {
+                                            required: "Required Field",
+                                            pattern: {
+                                              value: /^\S.*@\S+$/,
+                                              message: "Please enter valid email address",
+                                            },
+                                            
+                                          })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.email && errors.email.message}
+                                    </FormErrorMessage>
                                 </FormControl>
                                 
-                                <FormControl marginTop="15px">
+                                <FormControl marginTop="15px" isInvalid={errors.password}>
                                     <FormLabel>Password</FormLabel>
-                                    <Input id="password" type="password" />
+                                    <Input 
+                                        id="password" 
+                                        type="password" 
+                                        {...register("password", {
+                                            required: "Required Field",
+                                            minLength: {
+                                              value: 6,
+                                              message: "Your password must be 6 or more characters",
+                                            },
+                                            pattern: {
+                                              value: /^(?=.*?[A-Z])(?=(.*?[a-z]){1,})(?=(.*?[0-9]){1,})(?=(.*?[+={}|:;"'<,>./#?!@$%^&*-~`()[\]_-]){1,}).{6,}$/,
+                                              message:
+                                                "Password must be a mixture of both uppercase and lowercase letters, a number, and a special character",
+                                            },
+                                          })}
+                                        
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.password && errors.password.message}
+                                    </FormErrorMessage>
                                 </FormControl>
-                                <FormControl marginTop="15px">
+                                <FormControl marginTop="15px" isInvalid={errors.repassword}>
                                     <FormLabel>Confirm Password</FormLabel>
-                                    <Input id="re_password" type="password" />
+                                    <Input 
+                                        id="repassword" 
+                                        type="password" 
+                                        {...register("repassword", {
+                                            required: "Required Field",
+                                            validate: (value) =>
+                                              value === password || "The passwords do not match",
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.repassword && errors.repassword.message}
+                                    </FormErrorMessage>
                                 </FormControl>
+
                                 
                             </Box>
                         </Box>
+                        <Button 
+                            color="#FFFFFF"
+                            bg="#0ACF83"
+                            width={{base: "50%", md: "30%"}}
+                            _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
+                            marginTop="20px"
+                            type='submit'
+                        >
+                            Create Account
+                        </Button>
                     </form>
-                    <Button 
-                        color="#FFFFFF"
-                        bg="#0ACF83"
-                        width={{base: "50%", md: "30%"}}
-                        _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-                        marginTop="20px"
-                    >
-                        Create Account
-                    </Button>
+                    
                     <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
                         <p>Already have an account? <Link href="/login"><a style={{color: "blue"}}>Log In</a></Link></p>
                     </Box>
@@ -134,5 +262,4 @@ const SignUp = () => {
       </div>
     )
   }
-  //templateColumns={{base: "repeat(3, 1fr)", sm: "repeat(2, 1fr)"}}
   export default SignUp;
