@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo-white.png";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import LoginImage from "../public/images/loginImage.png";
 import { 
     Grid, 
@@ -16,7 +16,7 @@ import {
     Input, 
     Box,
     Center
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 
 const Login = () => {
     useEffect(()=>{
@@ -31,10 +31,10 @@ const Login = () => {
         </Head>
         
         <main>
-          <Grid templateColumns='repeat(3, 1fr)' w={{ base: '90%', sm: '98%', md: '100%' }} marginLeft="auto" marginRight="auto" gap={0}>
+          <Grid templateColumns="repeat(3, 1fr)" w={{ base: "90%", sm: "98%", md: "100%" }} marginLeft="auto" marginRight="auto" gap={0}>
             <GridItem  
                 colSpan={1} 
-                display={{ base: 'none', md: 'block' }} 
+                display={{ base: "none", md: "block" }} 
                 bg="#FF7262" 
                 h="100vh"
             >
@@ -77,13 +77,13 @@ const Login = () => {
                         <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>
                             <Box width="100%">
                                 <FormControl marginTop="15px">
-                                    <FormLabel htmlFor='email'>Email</FormLabel>
-                                    <Input id='email' type='email' />
+                                    <FormLabel htmlFor="email">Email</FormLabel>
+                                    <Input id="email" type="email" />
                                 </FormControl>
                                 
                                 <FormControl marginTop="15px">
-                                    <FormLabel htmlFor='password'>Password</FormLabel>
-                                    <Input id='password' type='password' />
+                                    <FormLabel htmlFor="password">Password</FormLabel>
+                                    <Input id="password" type="password" />
                                 </FormControl>
                                 
                                 
@@ -94,13 +94,13 @@ const Login = () => {
                         color="#FFFFFF"
                         bg="#FF7262"
                         width={{base: "50%", md: "30%"}}
-                        _hover={{ color: '#FFFFFF', bg: "#0ACF83"}}
+                        _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
                         marginTop="20px"
                     >
                         Login
                     </Button>
                     <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
-                        <p>Don't have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
+                        <p>Don"t have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
                     </Box>
                     
 
@@ -120,5 +120,5 @@ const Login = () => {
       </div>
     )
   }
-  //templateColumns={{base: 'repeat(3, 1fr)', sm: 'repeat(2, 1fr)'}}
+  //templateColumns={{base: "repeat(3, 1fr)", sm: "repeat(2, 1fr)"}}
   export default Login;

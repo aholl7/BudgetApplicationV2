@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo-white.png";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import SignUpImage from "../public/images/signUpImage.png";
 import { 
     Grid, 
@@ -16,7 +16,7 @@ import {
     Input, 
     Box,
     Center
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 
 const SignUp = () => {
     useEffect(()=>{
@@ -31,10 +31,10 @@ const SignUp = () => {
         </Head>
         
         <main>
-          <Grid templateColumns='repeat(3, 1fr)' w={{ base: '90%', sm: '98%', md: '100%' }} marginLeft="auto" marginRight="auto" gap={0}>
+          <Grid templateColumns="repeat(3, 1fr)" w={{ base: "90%", sm: "98%", md: "100%" }} marginLeft="auto" marginRight="auto" gap={0}>
             <GridItem  
                 colSpan={1} 
-                display={{ base: 'none', md: 'block' }} 
+                display={{ base: "none", md: "block" }} 
                 bg="#0ACF83" 
                 h="100vh"
             >
@@ -72,33 +72,33 @@ const SignUp = () => {
                     <Box marginTop={{base: "20px", sm: "80px"}}>
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Register</h1>
                         <p style={{fontSize: "20px", fontWeight: "bold", marginTop: "30px"}}>Manage your budget with ease</p>
-                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let's get you started so that you can verify your account and begin budgeting today.</p>
+                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Let"s get you started so that you can verify your account and begin budgeting today.</p>
                     </Box>
                     <form>
                         <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>
                             <Box display="flex" width="100%">
                                 <FormControl width = "49%">
                                     <FormLabel>First Name</FormLabel>
-                                    <Input id='name' type='name' />
+                                    <Input id="name" type="name" />
                                 </FormControl>
                                 <FormControl width = "49%" marginLeft = "2%">
                                     <FormLabel>Last Name</FormLabel>
-                                    <Input id='name' type='name' />
+                                    <Input id="name" type="name" />
                                 </FormControl>
                             </Box>
                             <Box width="100%">
                                 <FormControl marginTop="15px">
                                     <FormLabel>Email</FormLabel>
-                                    <Input id='email' type='email' />
+                                    <Input id="email" type="email" />
                                 </FormControl>
                                 
                                 <FormControl marginTop="15px">
                                     <FormLabel>Password</FormLabel>
-                                    <Input id='password' type='password' />
+                                    <Input id="password" type="password" />
                                 </FormControl>
                                 <FormControl marginTop="15px">
                                     <FormLabel>Confirm Password</FormLabel>
-                                    <Input id='re_password' type='password' />
+                                    <Input id="re_password" type="password" />
                                 </FormControl>
                                 
                             </Box>
@@ -108,7 +108,7 @@ const SignUp = () => {
                         color="#FFFFFF"
                         bg="#0ACF83"
                         width={{base: "50%", md: "30%"}}
-                        _hover={{ color: '#FFFFFF', bg: "#0ACF83"}}
+                        _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
                         marginTop="20px"
                     >
                         Create Account
@@ -134,5 +134,5 @@ const SignUp = () => {
       </div>
     )
   }
-  //templateColumns={{base: 'repeat(3, 1fr)', sm: 'repeat(2, 1fr)'}}
+  //templateColumns={{base: "repeat(3, 1fr)", sm: "repeat(2, 1fr)"}}
   export default SignUp;

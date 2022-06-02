@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css';
+import Head from "next/head"
+import Image from "next/image"
+import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo.png";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import HomeImage from "../public/images/homeImage.png";
 import { 
   Grid, 
@@ -14,7 +14,7 @@ import {
   FormHelperText,
   Input, 
   Box
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const Home = () => {
   const openSignUp = (e) => {
@@ -34,7 +34,7 @@ const Home = () => {
       </Head>
       
       <main>
-        <Grid templateColumns='repeat(3, 1fr)' gap={0}>
+        <Grid templateColumns="repeat(3, 1fr)" gap={0}>
           <GridItem colSpan={1} display="flex" marginTop={{base:"8px", md: "20px"}}>
             <Box display={{base: "none", md: "block"}}>
               <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
@@ -48,10 +48,10 @@ const Home = () => {
           <GridItem colSpan={2} marginTop="20px" textAlign="right">
               <Button 
                 color="#FFFFFF"
-                width='110px'
-                height='40px'
+                width="110px"
+                height="40px"
                 variant="link"
-                _hover={{ color: '#0ACF83'}}
+                _hover={{ color: "#0ACF83"}}
                 marginRight= "10px"
               >
                 Login
@@ -60,9 +60,9 @@ const Home = () => {
                 color="#FFFFFF"
                 bg="#0ACF83"
                 variant="link"
-                width='110px'
-                height='40px'
-                _hover={{ color: '#0ACF83', bg: "#FFFFFF"}}
+                width="110px"
+                height="40px"
+                _hover={{ color: "#0ACF83", bg: "#FFFFFF"}}
                 marginRight={{base: "0px", md: "100px"}}
                 onClick={(e) => openSignUp(e)}
               >
@@ -79,7 +79,7 @@ const Home = () => {
             marginRight: "auto"
           }}
         >
-          <Grid templateColumns='repeat(2, 1fr)' gap={1}>
+          <Grid templateColumns="repeat(2, 1fr)" gap={1}>
             <GridItem w="100%" colSpan={{base: "2", md:"1"}} marginTop={{base: "100px", md: "170px"}}>
               <h1 
                 style={{
@@ -103,8 +103,8 @@ const Home = () => {
               <Button 
                 color="#FFFFFF"
                 bg="#0ACF83"
-                width='70%'
-                _hover={{ color: '#0ACF83', bg: "#FFFFFF"}}
+                width="70%"
+                _hover={{ color: "#0ACF83", bg: "#FFFFFF"}}
                 marginTop="20px"
                 onClick={(e) => openSignUp(e)}
               >
