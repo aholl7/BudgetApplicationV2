@@ -22,6 +22,11 @@ const Home = () => {
     const url = "/signup";
     window.location.href = url;
   }
+  const openLogin = (e) => {
+    e.preventDefault();
+    const url = "/login";
+    window.location.href = url;
+  }
   useEffect(()=>{
     document.body.style.backgroundColor = "#221266";
   },[]);
@@ -53,6 +58,7 @@ const Home = () => {
                 variant="link"
                 _hover={{ color: "#0ACF83"}}
                 marginRight= "10px"
+                onClick={(e) => openLogin(e)}
               >
                 Login
               </Button>
