@@ -19,6 +19,12 @@ import {
 } from "@chakra-ui/react"
 
 const Login = () => {
+    const openDashboard = (e) => {
+        e.preventDefault();
+        const url = "/dashboard";
+        window.location.href = url;
+    }
+    
     useEffect(()=>{
       
     },[]);
@@ -96,6 +102,7 @@ const Login = () => {
                         width={{base: "50%", md: "30%"}}
                         _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
                         marginTop="20px"
+                        onClick={(e) => openDashboard(e)}
                     >
                         Login
                     </Button>

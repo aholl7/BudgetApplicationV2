@@ -20,7 +20,7 @@ if (getApps().length < 1) {
   }
   
 export const db = getFirestore();
-   
+export const auth = getAuth();
 
 
 

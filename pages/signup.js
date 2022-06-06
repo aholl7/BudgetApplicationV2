@@ -27,7 +27,8 @@ import {
     setDoc,
     doc,
   } from  "firebase/firestore";
-  import { db } from "../js/firebase.js";
+  import { db, auth } from "../js/firebase.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 const SignUp = () => {
     const {
@@ -36,16 +37,22 @@ const SignUp = () => {
         handleSubmit,
         formState: { errors },
       } = useForm({});
+
       const password = watch("password");
 
-      const submitInfo = async (data) => {
-          await addDoc(collection(db, "cities"), {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-          });
+      const verifyEmail = () => {
+        sendEmailVerification(auth.currentUser).then(() => {
+          // Email verification sent!
+          // ...
+            const url = "/verification";
+            window.location.href = url;
+        });
+      };
 
-       /*
+      const submitInfo = async (data) => {
+          
+
+       
         try {
           const user = createUserWithEmailAndPassword(
             auth,
@@ -69,13 +76,14 @@ const SignUp = () => {
         } catch (error) {
           window.alert(error.message);
         }
-        auth.signOut();*/
+        auth.signOut();
         
       }
 
       
 
     useEffect(()=>{
+
     },[]);
     return (
       <div>
