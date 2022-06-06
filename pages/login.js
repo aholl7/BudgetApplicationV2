@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo-white.png";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import LoginImage from "../public/images/loginImage.png";
 import { 
     Grid, 
@@ -12,17 +12,85 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    FormHelperText,
     Input, 
     Box,
-    Center
+    Alert,
+    AlertIcon,
+    AlertDescription
 } from "@chakra-ui/react"
+import { useForm } from "react-hook-form";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { db, auth } from "../js/firebase.js";
 
 const Login = () => {
-    const openDashboard = (e) => {
-        e.preventDefault();
+    const {
+        register,
+        watch,
+        handleSubmit,
+        formState: { errors },
+      } = useForm({});
+    
+    const [errorTriggered, setErrorTriggered] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    
+    const submitInfo = async (data) => {
+        
+        /*
         const url = "/dashboard";
         window.location.href = url;
+       */
+        signInWithEmailAndPassword(auth, data.email, data.password)
+        .then((userCredential) => {
+          // Signed in 
+          if (!userCredential.user.emailVerified) {
+            throw new Error("You must verify your email before continuing");
+            return;
+          }else{
+            const url = "/dashboard";
+            window.location.href = url;
+          }
+          
+          // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorTriggered(true);
+            if (errorCode == "auth/wrong-password") {
+               setErrorMessage("Password entered is incorrect!");
+               
+               
+            } else if (errorCode == "auth/user-not-found") {
+               setErrorMessage("User not found!");
+               
+               
+            } else if (errorCode == "auth/user-disabled") {
+               setErrorMessage("This email is disabled");
+               
+               
+            } else if (errorCode == "auth/invalid-email") {
+               setErrorMessage("This email is disabled");
+               
+               
+            } else {
+               setErrorMessage(errorMessage);
+               
+               
+            }
+    
+            if (error == "Error: You must verify your email before continuing") {
+               setErrorMessage("You must verify your email before continuing");
+               
+               
+            }
+          });
+          
+
+       
+
+     
+        
+        
     }
     
     useEffect(()=>{
@@ -79,33 +147,69 @@ const Login = () => {
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Welcome Back!</h1>
                         <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Sign in to continue.</p>
                     </Box>
-                    <form>
+                    <form onSubmit={handleSubmit(submitInfo)}>
+                        
                         <Box marginTop="20px" width={{base: "100%", sm: "75%"}}>
+                        {errorTriggered && (
+                            <Alert status='error'>
+                                <AlertIcon />
+                                <AlertDescription>{errorMessage}</AlertDescription>
+                            </Alert>
+                        )}
+                        
                             <Box width="100%">
-                                <FormControl marginTop="15px">
-                                    <FormLabel htmlFor="email">Email</FormLabel>
-                                    <Input id="email" type="email" />
+                                
+                                <FormControl marginTop="15px" isInvalid={errors.email}>
+                                    <FormLabel>Email</FormLabel>
+                                    <Input 
+                                        id="login_email" 
+                                        type="email" 
+                                        {...register("email", {
+                                            required: "Required Field",
+                                            pattern: {
+                                              value: /^\S.*@\S+$/,
+                                              message: "Please enter valid email address",
+                                            },
+                                            
+                                          })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.email && errors.email.message}
+                                    </FormErrorMessage>
                                 </FormControl>
                                 
-                                <FormControl marginTop="15px">
-                                    <FormLabel htmlFor="password">Password</FormLabel>
-                                    <Input id="password" type="password" />
+                                <FormControl marginTop="15px" isInvalid={errors.password}>
+                                    <FormLabel>Password</FormLabel>
+                                    <Input 
+                                        id="login_password" 
+                                        type="password" 
+                                        {...register("password", {
+                                            required: "Required Field",
+                                            
+                                        })}
+                                        
+                                    />
+                                    <FormErrorMessage>
+                                        {errors.password && errors.password.message}
+                                    </FormErrorMessage>
                                 </FormControl>
+                                <Link href="/forgotPassword"><a style={{color: "blue", fontWeight: "bold", float: "right", marginTop:"8px"}}>Forgot Password?</a></Link>
                                 
                                 
                             </Box>
                         </Box>
+                        <Button 
+                            color="#FFFFFF"
+                            bg="#FF7262"
+                            width={{base: "50%", md: "30%"}}
+                            _hover={{ color: "#FFFFFF", bg: "#FF7262"}}
+                            marginTop="40px"
+                            type="submit"
+                        >
+                            Login
+                        </Button>
                     </form>
-                    <Button 
-                        color="#FFFFFF"
-                        bg="#FF7262"
-                        width={{base: "50%", md: "30%"}}
-                        _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-                        marginTop="20px"
-                        onClick={(e) => openDashboard(e)}
-                    >
-                        Login
-                    </Button>
+                    
                     <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
                         <p>Don&apos;t have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
                     </Box>

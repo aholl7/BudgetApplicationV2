@@ -1,24 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import Logo from "../public/images/logo-white.png";
 import { useEffect } from "react";
-import LoginImage from "../public/images/loginImage.png";
 import { 
-    Grid, 
-    GridItem, 
-    Button,   
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-    Input, 
+    Button, 
     Box,
-    Center
 } from "@chakra-ui/react"
 import VerificationImage from "../public/images/verification-image.png";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {sendEmailVerification } from "firebase/auth";
 import { db, auth } from "../js/firebase.js";
 
 const Verification = () => {

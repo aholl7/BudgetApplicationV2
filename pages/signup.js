@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo-white.png";
 import { useEffect } from "react";
 import SignUpImage from "../public/images/signUpImage.png";
@@ -12,18 +11,11 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    FormHelperText,
     Input, 
     Box,
-    Center
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import {
-    collection,
-    addDoc,
-    query,
-    where,
-    getDocs,
     setDoc,
     doc,
   } from  "firebase/firestore";
