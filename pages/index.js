@@ -15,6 +15,7 @@ import {
   Input, 
   Box
 } from "@chakra-ui/react";
+import { db, auth } from "../js/firebase.js";
 
 const Home = () => {
   const openSignUp = (e) => {
@@ -24,8 +25,15 @@ const Home = () => {
   }
   const openLogin = (e) => {
     e.preventDefault();
-    const url = "/login";
-    window.location.href = url;
+    const user = auth.currentUser;
+    
+    if (user) {
+      const url = "/dashboard";
+      window.location.href = url;
+    } else {
+      const url = "/login";
+      window.location.href = url;
+    }
   }
   useEffect(()=>{
     document.body.style.backgroundColor = "#221266";

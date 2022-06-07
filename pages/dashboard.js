@@ -2,7 +2,6 @@ import Head from "next/head"
 import Image from "next/image"
 import Logo from "../public/images/logo.png";
 import { useState, useEffect } from "react";
-import HomeImage from "../public/images/homeImage.png";
 import { 
   Grid, 
   GridItem, 
@@ -15,6 +14,7 @@ import {
     getDoc,
     doc,
   } from  "firebase/firestore";
+import LoadingScreen from "../components/LoadingScreen";
 
 const Home = () => {
     const [userInfo, setUserInfo] = useState({firstName: "", lastName: "", email: ""})
@@ -40,16 +40,10 @@ const Home = () => {
       }
   }
   useEffect(()=>{
-    document.body.style.backgroundColor = "#221266";
     onAuthStateChanged(auth, (user) => {
         if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = user.uid;
-        
           getUserInfo(uid);
-
-          // ...
         } else {
           // User is signed out
           // ...
@@ -58,9 +52,10 @@ const Home = () => {
   },[]);
   if(loading == true){
       return (
-          <p style={{color: "white"}}>Loading...</p>
+          <LoadingScreen />
       )
   }else{
+    document.body.style.backgroundColor = "#221266";
     return (
         <div>
         <Head>
@@ -76,7 +71,7 @@ const Home = () => {
                 <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
                 </Box>
                 <Box marginLeft={{base: "10px", md: "-30px"}}>
-                <h1 id="logo-text">Money Watcher</h1>
+                    <h1 id="logo-text">Money Watcher</h1>
                 </Box>
                 
             </GridItem>
@@ -116,16 +111,20 @@ const Home = () => {
                 >
                     Welcome, {userInfo.firstName}
                 </h1>
+                <p style={{
+                    color: "white", 
+                    fontSize: "22px", 
+                    fontWeight: "bold"
+                }}>
+                    Features coming soon!
+                </p>
                 
                 
                 
                 
                 
                 </GridItem>
-                <GridItem w="100%" textAlign="center" marginTop="80px" display={{base: "none", md: "block"}}>
-                <Image src={HomeImage} height={404} width={435} />
                 
-                </GridItem>
             </Grid>
             
             </div>

@@ -16,6 +16,10 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import {
+    collection,
+    query,
+    where,
+    getDocs,
     setDoc,
     doc,
   } from  "firebase/firestore";
@@ -72,6 +76,22 @@ const SignUp = () => {
         
       }
 
+      const EmailNotTaken = async (email) => {
+        const enteredEmail = email;
+        const q = query(collection(db, "users"), where("email", "==", email));
+    
+        const snapshot = await getDocs(q);
+    
+        if (snapshot.size > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      };
+    
+      const returnEmailNotTaken = async (email) => {
+        return await EmailNotTaken(email);
+      };
       
 
     useEffect(()=>{
@@ -178,6 +198,11 @@ const SignUp = () => {
                                             pattern: {
                                               value: /^\S.*@\S+$/,
                                               message: "Please enter valid email address",
+                                            },
+                                            validate: {
+                                                isTaken: async (v) =>
+                                                  (await returnEmailNotTaken(v)) ||
+                                                  "This email is already in use",
                                             },
                                             
                                           })}

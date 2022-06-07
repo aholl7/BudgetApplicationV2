@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import Logo from "../public/images/logo-white.png";
 import { useState, useEffect } from "react";
 import LoginImage from "../public/images/loginImage.png";
@@ -19,7 +18,7 @@ import {
     AlertDescription
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { db, auth } from "../js/firebase.js";
 
 const Login = () => {
@@ -94,7 +93,12 @@ const Login = () => {
     }
     
     useEffect(()=>{
-      
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const url = "/dashboard";
+                window.location.href = url;
+            } 
+          });
     },[]);
     return (
       <div>

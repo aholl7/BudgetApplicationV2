@@ -22,10 +22,40 @@ a {
 
 }
 
+#loading-logo-text{
+  color: #0ACF83;
+  font-size: 70px;
+  font-weight: bold;
+  text-align: center;
+}
+
 #logo-text-white{
   color: #FFFFFF;
   font-size: 26px;
   font-weight: bold;
   margin-left: -30px;
 
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #0ACF83;
+  border-right: 16px solid #0ACF83;
+  border-left: 16px solid #cfffec;
+  border-bottom: 16px solid #cfffec;;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
