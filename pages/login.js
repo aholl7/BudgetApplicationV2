@@ -235,5 +235,4 @@ const Login = () => {
       </div>
     )
   }
-  //templateColumns={{base: "repeat(3, 1fr)", sm: "repeat(2, 1fr)"}}
   export default Login;
