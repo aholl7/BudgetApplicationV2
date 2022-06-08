@@ -96,7 +96,7 @@ const ForgotPassword = () => {
                           borderRadius="3px"
                       >
                           <h1 style={{textAlign: "center", fontWeight: "bold", fontSize: "24px"}}>Forgot Password</h1>
-                          <p style={{marginTop: "50px"}}>Enter the email address associated with your account and we'll send you a link to reset your password.</p>
+                          <p style={{marginTop: "50px"}}>Enter the email address associated with your account and we will send you a link to reset your password.</p>
                           <form onSubmit={handleSubmit(submitInfo)}>
                               
                               <Box marginTop="20px" >
