@@ -6,7 +6,16 @@ import {
   Grid, 
   GridItem, 
   Button,
-  Box
+  Box,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react";
 import { db, auth } from "../js/firebase.js";
 import {onAuthStateChanged} from "firebase/auth";
@@ -15,6 +24,7 @@ import {
     doc,
   } from  "firebase/firestore";
 import LoadingScreen from "../components/LoadingScreen";
+import InformationTable from "../components/InformationTable";
 
 const Home = () => {
     const [userInfo, setUserInfo] = useState({firstName: "", lastName: "", email: ""})
@@ -100,36 +110,68 @@ const Home = () => {
                 marginRight: "auto"
             }}
             >
-            <Grid templateColumns="repeat(2, 1fr)" gap={1}>
-                <GridItem w="100%" colSpan={{base: "2", md:"1"}} marginTop={{base: "100px", md: "170px"}}>
                 <h1 
                     style={{
                     color: "#0ACF83", 
                     fontSize: "38px", 
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    marginTop: "35px"
                     }}
                 >
-                    Welcome, {userInfo.firstName}
+                    Welcome, {userInfo.firstName}!
                 </h1>
-                <p style={{
-                    color: "white", 
-                    fontSize: "22px", 
-                    fontWeight: "bold"
-                }}>
-                    Features coming soon!
-                </p>
                 
-                
-                
-                
-                
-                </GridItem>
-                
-            </Grid>
-            
+                <Box>
+                    <h1 
+                        style={{
+                        color: "#0ACF83", 
+                        fontSize: "38px", 
+                        fontWeight: "bold",
+                        marginTop: "35px"
+                        }}
+                    >
+                        Expenses
+                    </h1>
+                    
+                <InformationTable />
+                <Button 
+                    color="#FFFFFF"
+                    bg="#0ACF83"
+                    width={{base: "50%", md: "30%"}}
+                    _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
+                    marginTop="20px"
+                    type='submit'
+                >
+                    Add Expense
+                </Button>
+            </Box>
+            <Box>
+                <h1 
+                    style={{
+                    color: "#0ACF83", 
+                    fontSize: "38px", 
+                    fontWeight: "bold",
+                    marginTop: "35px"
+                    }}
+                >
+                    Income
+                </h1>
+                <InformationTable />
+                <Button 
+                    color="#FFFFFF"
+                    bg="#0ACF83"
+                    width={{base: "50%", md: "30%"}}
+                    _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
+                    marginTop="20px"
+                    type='submit'
+                >
+                    Add Income
+                </Button>
+            </Box>
             </div>
             
         </main>
+        
         
         
         </div>
