@@ -2,34 +2,26 @@ import Head from "next/head"
 import Image from "next/image"
 import Logo from "../public/images/logo.png";
 import { useState, useEffect } from "react";
-import { 
-  Grid, 
-  GridItem, 
-  Button,
-  Box,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
 import { db, auth } from "../js/firebase.js";
 import {onAuthStateChanged} from "firebase/auth";
 import {
     getDoc,
     doc,
   } from  "firebase/firestore";
+import { 
+    Grid, 
+    GridItem, 
+    Button,
+    Box,
+} from "@chakra-ui/react";
 import LoadingScreen from "../components/LoadingScreen";
-import InformationTable from "../components/InformationTable";
+import DashSection from "../components/DashSection";
+
 
 const Home = () => {
-    const [userInfo, setUserInfo] = useState({firstName: "", lastName: "", email: ""})
+    const [userInfo, setUserInfo] = useState({uid: "", firstName: "", lastName: "", email: ""})
     const [loading, setLoading] = useState(true);
-  
+    
   const signOut = (e) => {
     e.preventDefault();
     auth.signOut();
@@ -42,7 +34,7 @@ const Home = () => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         //console.log(docSnap.data())
-        setUserInfo({firstName: docSnap.data().firstName, lastName: docSnap.data().lastName, email: docSnap.data().email})
+        setUserInfo({uid: uid, firstName: docSnap.data().firstName, lastName: docSnap.data().lastName, email: docSnap.data().email})
         setLoading(false);
       } else {
         // doc.data() will be undefined in this case
@@ -102,7 +94,9 @@ const Home = () => {
             </GridItem>
 
             </Grid>
+            <div>
             
+            </div>
             <div 
             style={{
                 width: "90%", 
@@ -121,53 +115,10 @@ const Home = () => {
                     Welcome, {userInfo.firstName}!
                 </h1>
                 
-                <Box>
-                    <h1 
-                        style={{
-                        color: "#0ACF83", 
-                        fontSize: "38px", 
-                        fontWeight: "bold",
-                        marginTop: "35px"
-                        }}
-                    >
-                        Expenses
-                    </h1>
-                    
-                <InformationTable />
-                <Button 
-                    color="#FFFFFF"
-                    bg="#0ACF83"
-                    width={{base: "50%", md: "30%"}}
-                    _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-                    marginTop="20px"
-                    type='submit'
-                >
-                    Add Expense
-                </Button>
-            </Box>
-            <Box>
-                <h1 
-                    style={{
-                    color: "#0ACF83", 
-                    fontSize: "38px", 
-                    fontWeight: "bold",
-                    marginTop: "35px"
-                    }}
-                >
-                    Income
-                </h1>
-                <InformationTable />
-                <Button 
-                    color="#FFFFFF"
-                    bg="#0ACF83"
-                    width={{base: "50%", md: "30%"}}
-                    _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-                    marginTop="20px"
-                    type='submit'
-                >
-                    Add Income
-                </Button>
-            </Box>
+                <DashSection uid={userInfo.uid} type={"Expenses"}/>
+                <DashSection uid={userInfo.uid} type={"Income"}/>
+            
+            
             </div>
             
         </main>
@@ -180,3 +131,4 @@ const Home = () => {
 }
 
 export default Home;
+
