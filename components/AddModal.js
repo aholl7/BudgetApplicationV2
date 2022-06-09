@@ -13,7 +13,10 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    Select
+    Select,
+    Checkbox, 
+    CheckboxGroup,
+    Stack
   } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
@@ -30,15 +33,21 @@ const AddModal = (props) => {
     } = useForm({});
     const { isOpen, onOpen, onClose } = useDisclosure();
     const text = props.type === "Expenses" ?  "Expenses" : props.type === "Income" ? "Income" : "";
-    
+    const [selectedFreq, setSelectedFreq] = useState("");
     const submitInfo = async (data) => {
+        var amount = data.amount;
+        if(amount.indexOf(".") === -1){
+            amount += ".00";
+        }else if(amount.indexOf(",") !== -1){
+            amount = amount.replace(",", "");
+        }
         if(props.type === "Expenses"){
             const docRef = await addDoc(collection(db, "Expenses"), {
                 uid: props.uid,
                 expense: data.name,
                 expenseType: data.type,
                 frequency: data.frequency,
-                amount: data.amount
+                amount: amount
             });
             onClose();
         }else{
@@ -46,11 +55,12 @@ const AddModal = (props) => {
                 uid: props.uid,
                 income: data.name,
                 frequency: data.frequency,
-                amount: data.amount
+                amount: amount
             });
             onClose();
         }
 
+        console.log(data);
         reset({
             name: "",
             type: "",
@@ -58,6 +68,8 @@ const AddModal = (props) => {
             amount: ""
           });
     }
+
+    
     return (
       <>
         <Button 
@@ -115,8 +127,9 @@ const AddModal = (props) => {
                         {...register("frequency", {
                             required: "Please select an option",
                         })}
+                        onChange={(e) => setSelectedFreq(e.target.value)}
                     >
-                        <option value='Monthly'>Once</option>
+                        <option value='Once'>Once</option>
                         <option value='Monthly'>Monthly</option>
                         <option value='Semester'>Semester</option>
                         <option value='Academic Year'>Academic Year</option>
@@ -125,6 +138,30 @@ const AddModal = (props) => {
                         {errors.frequency && errors.frequency.message}
                     </FormErrorMessage>
                 </FormControl>
+                
+                <FormControl marginTop="15px" isInvalid={errors.calculation}>
+                <FormLabel>I would like to factor this {props.type === "Expenses" ? "expense" : props.type} in: </FormLabel>
+                    <Stack spacing={5} direction='row'
+                    {...register("calculation", {
+                        required: "Please select an option",
+                    })}
+                    
+                    >
+                        <Checkbox value='Monthly' isDisabled={selectedFreq === "Monthly"} /*isChecked={selectedFreq === "Monthly"}*/>
+                            Monthly
+                        </Checkbox>
+                        <Checkbox value='Semester' isDisabled={selectedFreq === "Semester"} /*isChecked={selectedFreq === "Semester"} */>
+                            By Semester
+                        </Checkbox>
+                        <Checkbox value='Academic Year' isDisabled={selectedFreq === "Academic Year"} /*isChecked={selectedFreq === "Academic Year"}*/>
+                            By Academic Year
+                        </Checkbox>
+                    </Stack>
+                    <FormErrorMessage>
+                        {errors.calculation && errors.calculation.message}
+                    </FormErrorMessage>
+                </FormControl>
+                
                 <FormControl marginTop="15px" isInvalid={errors.amount}>
                     <FormLabel>Amount ($)</FormLabel>
                     <Input 

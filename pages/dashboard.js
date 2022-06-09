@@ -117,7 +117,7 @@ const Home = () => {
                 
                 <DashSection uid={userInfo.uid} type={"Expenses"}/>
                 <DashSection uid={userInfo.uid} type={"Income"}/>
-            
+                <Box paddingBottom="80px"></Box>  
             
             </div>
             

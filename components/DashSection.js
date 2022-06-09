@@ -1,3 +1,12 @@
+import { db, auth } from "../js/firebase.js";
+import { useState, useEffect } from "react";
+import { 
+    collection, 
+    query, 
+    where, 
+    getDocs, 
+    onSnapshot
+} from "firebase/firestore";
 import { 
     Grid, 
     GridItem, 
@@ -7,7 +16,7 @@ import {
 import LoadingScreen from "../components/LoadingScreen";
 import InformationTable from "../components/InformationTable";
 import AddModal from "../components/AddModal";
-
+import StatisticsSection from "./StatisticsSection.js";
 const DashSection = (props) => {
     return(
         <Box>
@@ -22,10 +31,10 @@ const DashSection = (props) => {
                 {props.type === "Expenses" ?  "EXPENSES" : props.type === "Income" ? "INCOME" : "" }
                 
             </h1>
-            
+            <StatisticsSection uid={props.uid} type={props.type}/>
             <InformationTable uid={props.uid} type={props.type}/>
             <AddModal uid={props.uid} type={props.type}/>
-                
+            
         </Box>
 
     );
