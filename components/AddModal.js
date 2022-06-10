@@ -34,6 +34,15 @@ const AddModal = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const text = props.type === "Expenses" ?  "Expenses" : props.type === "Income" ? "Income" : "";
     const [selectedFreq, setSelectedFreq] = useState("");
+    const [monthlyChecked, setMonthlyChecked] = useState(false);
+    const [semesterChecked, setSemesterChecked] = useState(false);
+    const handleMonthlyChange = (event) => {
+      setMonthlyChecked(event.target.checked);
+    };
+
+    const handleSemesterChange = (event) => {
+        setSemesterChecked(event.target.checked);
+    };
     const submitInfo = async (data) => {
         var amount = data.amount;
         if(amount.indexOf(".") === -1){
@@ -41,6 +50,21 @@ const AddModal = (props) => {
         }else if(amount.indexOf(",") !== -1){
             amount = amount.replace(",", "");
         }
+        /*
+        var factored = [];
+        if(monthlyChecked === true){
+            factored.push("Monthly")
+            if(semesterChecked === true){
+                factored.push("Semester")
+            }
+
+        }
+        else if(semesterChecked === true){
+            factored.push("Semester")
+        }
+        data.factored = factored;
+        */
+        
         if(props.type === "Expenses"){
             const docRef = await addDoc(collection(db, "Expenses"), {
                 uid: props.uid,
@@ -139,29 +163,32 @@ const AddModal = (props) => {
                     </FormErrorMessage>
                 </FormControl>
                 
-                <FormControl marginTop="15px" isInvalid={errors.calculation}>
+                {/*<FormControl marginTop="15px" isInvalid={errors.calculation}>
+                
                 <FormLabel>I would like to factor this {props.type === "Expenses" ? "expense" : props.type} in: </FormLabel>
-                    <Stack spacing={5} direction='row'
-                    {...register("calculation", {
-                        required: "Please select an option",
-                    })}
-                    
-                    >
-                        <Checkbox value='Monthly' isDisabled={selectedFreq === "Monthly"} /*isChecked={selectedFreq === "Monthly"}*/>
+                    <Stack spacing={5} direction='row'>
+                        <Checkbox 
+                            value='Monthly' 
+                            isDisabled={selectedFreq === "Monthly"} 
+                            onChange={(e) => handleMonthlyChange(e)}
+                            
+                        >
                             Monthly
                         </Checkbox>
-                        <Checkbox value='Semester' isDisabled={selectedFreq === "Semester"} /*isChecked={selectedFreq === "Semester"} */>
+                        <Checkbox 
+                            value='Semester' 
+                            isDisabled={selectedFreq === "Monthly" || selectedFreq === "Semester" } 
+                            onChange={(e) => handleSemesterChange(e)}
+                            
+                        >
                             By Semester
-                        </Checkbox>
-                        <Checkbox value='Academic Year' isDisabled={selectedFreq === "Academic Year"} /*isChecked={selectedFreq === "Academic Year"}*/>
-                            By Academic Year
                         </Checkbox>
                     </Stack>
                     <FormErrorMessage>
                         {errors.calculation && errors.calculation.message}
                     </FormErrorMessage>
                 </FormControl>
-                
+                    */}
                 <FormControl marginTop="15px" isInvalid={errors.amount}>
                     <FormLabel>Amount ($)</FormLabel>
                     <Input 
