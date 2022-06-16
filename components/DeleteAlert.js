@@ -36,7 +36,7 @@ const DeleteAlert = (props) => {
               </AlertDialogHeader>
   
               <AlertDialogBody>
-                Are you sure? You can't undo this action afterwards.
+                Are you sure? You can&apos;t undo this action afterwards.
               </AlertDialogBody>
   
               <AlertDialogFooter>
