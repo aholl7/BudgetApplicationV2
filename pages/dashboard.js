@@ -17,7 +17,6 @@ import {
 import LoadingScreen from "../components/LoadingScreen";
 import DashSection from "../components/DashSection";
 
-
 const Home = () => {
     const [userInfo, setUserInfo] = useState({uid: "", firstName: "", lastName: "", email: ""})
     const [loading, setLoading] = useState(true);
@@ -79,6 +78,7 @@ const Home = () => {
             </GridItem>
 
             <GridItem colSpan={2} marginTop="20px" textAlign="right">
+            
                 <Button 
                     color="#FFFFFF"
                     bg="#0ACF83"
@@ -114,7 +114,7 @@ const Home = () => {
                 >
                     Welcome, {userInfo.firstName}!
                 </h1>
-                
+                <DashSection uid={userInfo.uid} type={"Difference"}/>
                 <DashSection uid={userInfo.uid} type={"Expenses"}/>
                 <DashSection uid={userInfo.uid} type={"Income"}/>
                 <Box paddingBottom="80px"></Box>  

@@ -30,52 +30,65 @@ import {
             const que = query(collection(db, "Expenses"), where("uid", "==", props.uid));
             
             const unsub = onSnapshot(que, (querySnapshot) => {
-                setMonthly(0);
-                setSemester(0);
-                setYearly(0);
+                var m = 0;
+                var s = 0;
+                var y  = 0;
                 querySnapshot.forEach((doc) => {
                     if(doc.data().frequency === "Once"){
-                        setMonthly(monthly += parseFloat(doc.data().amount));
-                        setSemester(semester += (parseFloat(doc.data().amount)));
-                        setYearly(yearly += (parseFloat(doc.data().amount)));
+                        m += parseFloat(doc.data().amount);
+                        s += parseFloat(doc.data().amount);
+                        y += parseFloat(doc.data().amount);
                     }else if(doc.data().frequency === "Monthly"){
-                        setMonthly(monthly += parseFloat(doc.data().amount));
-                        setSemester(semester += (4 * parseFloat(doc.data().amount)));
-                        setYearly(yearly += (8 * parseFloat(doc.data().amount)));
+                        m += parseFloat(doc.data().amount);
+                        s += 4 * parseFloat(doc.data().amount);
+                        y += 8 * parseFloat(doc.data().amount);
+                        
                     }else if(doc.data().frequency === "Semester"){
-                        setSemester(semester += parseFloat(doc.data().amount));
-                        setYearly(yearly += (2 * parseFloat(doc.data().amount)));
+                        m += parseFloat(doc.data().amount)/4;
+                        s += parseFloat(doc.data().amount);
+                        y += parseFloat(doc.data().amount)*2;
                     }else if(doc.data().frequency === "Academic Year"){
-                        setYearly(yearly += parseFloat(doc.data().amount));
+                        m += parseFloat(doc.data().amount)/8;
+                        s += parseFloat(doc.data().amount)/2;
+                        y += parseFloat(doc.data().amount);
                     }
                 })
-                
+                setMonthly(m);
+                setSemester(s);
+                setYearly(y);
             })
         }else{
-            const que = query(collection(db, "Income"), where("uid", "==", props.uid));
-            const unsub = onSnapshot(que, (querySnapshot) => {
-                setMonthly(0);
-                setSemester(0);
-                setYearly(0);
-                querySnapshot.forEach((doc) => {
-                    if(doc.data().frequency === "Once"){
-                        setMonthly(monthly += parseFloat(doc.data().amount));
-                        setSemester(semester += (parseFloat(doc.data().amount)));
-                        setYearly(yearly += (parseFloat(doc.data().amount)));
-                    }else if(doc.data().frequency === "Monthly"){
-                        setMonthly(monthly += parseFloat(doc.data().amount));
-                        setSemester(semester += (4 * parseFloat(doc.data().amount)));
-                        setYearly(yearly += (8 * parseFloat(doc.data().amount)));
-                    }else if(doc.data().frequency === "Semester"){
-                        setSemester(semester += parseFloat(doc.data().amount));
-                        setYearly(yearly += (2 * parseFloat(doc.data().amount)));
-                    }else if(doc.data().frequency === "Academic Year"){
-                        setYearly(yearly += parseFloat(doc.data().amount));
-                    }
-                    
+            if(props.type === "Income"){
+                const que = query(collection(db, "Income"), where("uid", "==", props.uid));
+                const unsub = onSnapshot(que, (querySnapshot) => {
+                    var m = 0;
+                    var s = 0;
+                    var y  = 0;
+                    querySnapshot.forEach((doc) => {
+                        if(doc.data().frequency === "Once"){
+                            m += parseFloat(doc.data().amount);
+                            s += parseFloat(doc.data().amount);
+                            y += parseFloat(doc.data().amount);
+                        }else if(doc.data().frequency === "Monthly"){
+                            m += parseFloat(doc.data().amount);
+                            s += 4 * parseFloat(doc.data().amount);
+                            y += 8 * parseFloat(doc.data().amount);
+                            
+                        }else if(doc.data().frequency === "Semester"){
+                            m += parseFloat(doc.data().amount)/4;
+                            s += parseFloat(doc.data().amount);
+                            y += parseFloat(doc.data().amount)*2;
+                        }else if(doc.data().frequency === "Academic Year"){
+                            m += parseFloat(doc.data().amount)/8;
+                            s += parseFloat(doc.data().amount)/2;
+                            y += parseFloat(doc.data().amount);
+                        }
+                    })
+                    setMonthly(m);
+                    setSemester(s);
+                    setYearly(y);
                 })
-                
-            })
+            }
         }
     }
     useEffect(() => {
@@ -90,6 +103,7 @@ import {
             marginTop="20px"
         >
             <StatGroup>
+
                 <Statistics type={props.type} frequency={"Monthly"} data={monthly}/><br />
                 <Statistics type={props.type} frequency={"Semester"} data={semester}/><br />
                 <Statistics type={props.type} frequency={"Academic Year"} data={yearly}/><br />

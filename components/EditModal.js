@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import {
     Modal,
@@ -17,12 +18,12 @@ import {
     CheckboxGroup,
     Stack
   } from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
-import { collection, addDoc, getDocs, query, where} from "firebase/firestore"; 
+import { collection, addDoc, getDoc, doc, updateDoc, query, where, getDocs } from "firebase/firestore"; 
+
 import { db, auth } from "../js/firebase.js";
 //https://www.bestcolleges.com/resources/budgeting-in-college/
-const AddModal = (props) => {
+const EditModal = (props) => {
     const {
         register,
         watch,
@@ -30,58 +31,56 @@ const AddModal = (props) => {
         formState: { errors },
         reset
     } = useForm({});
-    const { isOpen, onOpen, onClose } = useDisclosure();
     const text = props.type === "Expenses" ?  "Expenses" : props.type === "Income" ? "Income" : "";
-    const [selectedFreq, setSelectedFreq] = useState("");
+    const [name, setName] = useState(props.compName);
+    const [expenseType, setExpenseType] = useState(props.compType);
+    const [amount, setAmount] = useState(props.compAmount);            
+    const [selectedFreq, setSelectedFreq] = useState(props.compFrequency);
+    
+    /*
     const [monthlyChecked, setMonthlyChecked] = useState(false);
     const [semesterChecked, setSemesterChecked] = useState(false);
+    */
     const handleMonthlyChange = (event) => {
       setMonthlyChecked(event.target.checked);
     };
-
     const handleSemesterChange = (event) => {
         setSemesterChecked(event.target.checked);
     };
     const submitInfo = async (data) => {
-        var amount = data.amount;
-        if(amount.indexOf(".") === -1){
-            amount += ".00";
-        }else if(amount.indexOf(",") !== -1){
-            amount = amount.replace(",", "");
-        }
-        /*
-        var factored = [];
-        if(monthlyChecked === true){
-            factored.push("Monthly")
-            if(semesterChecked === true){
-                factored.push("Semester")
-            }
-
-        }
-        else if(semesterChecked === true){
-            factored.push("Semester")
-        }
-        data.factored = factored;
-        */
-        
         if(props.type === "Expenses"){
-            const docRef = await addDoc(collection(db, "Expenses"), {
-                uid: props.uid,
-                expense: data.name,
-                expenseType: data.type,
-                frequency: data.frequency,
-                amount: amount
+            const docRef = doc(db, props.type, props.compId);
+            var editedAmount = amount;
+            if(editedAmount.indexOf(".") === -1){
+                editedAmount += ".00";
+            }else if(editedAmount .indexOf(",") !== -1){
+                editedAmount = editedAmount .replace(",", "");
+            }
+            await updateDoc(docRef, {
+                amount: editedAmount,
+                expense: name,
+                expenseType: expenseType,
+                frequency: selectedFreq,
             });
-            onClose();
+            props.onClose();
         }else{
-            const docRef = await addDoc(collection(db, "Income"), {
-                uid: props.uid,
-                income: data.name,
-                frequency: data.frequency,
-                amount: amount
+            
+            const docRef = doc(db, props.type, props.compId);
+            var editedAmount = amount;
+            if(editedAmount.indexOf(".") === -1){
+                editedAmount += ".00";
+            }else if(editedAmount .indexOf(",") !== -1){
+                editedAmount = editedAmount .replace(",", "");
+            }
+            await updateDoc(docRef, {
+                amount: editedAmount,
+                expense: name,
+                frequency: selectedFreq,
             });
-            onClose();
+            props.onClose();
+            
         }
+        
         reset({
             name: "",
             type: "",
@@ -100,8 +99,7 @@ const AddModal = (props) => {
     
         const snapshot = await getDocs(q);
     
-        if (snapshot.size > 0) {
-            
+        if (snapshot.size > 0 && name !== props.compName) {
           return false;
         } else {
           return true;
@@ -113,23 +111,15 @@ const AddModal = (props) => {
       };
 
     
+    
+    
     return (
-      <>
-        <Button 
-            color="#FFFFFF"
-            bg="#0ACF83"
-            width={{base: "50%", md: "30%"}}
-            _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-            marginTop="20px"
-            onClick={onOpen}
-        >
-            Add {text}
-        </Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+      
+    <>
+      <Modal isOpen={props.isOpen} onClose={props.onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add {text}</ModalHeader>
+          <ModalHeader>Edit {text}</ModalHeader>
           <ModalCloseButton />
           <form onSubmit={handleSubmit(submitInfo)}>
           <ModalBody>
@@ -145,6 +135,8 @@ const AddModal = (props) => {
                                     "Already exists!",
                             },
                         })}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                         
                     />
                     <FormErrorMessage>
@@ -158,6 +150,8 @@ const AddModal = (props) => {
                             {...register("type", {
                                 required: "Please select an option",
                             })}
+                            value={expenseType}
+                            onChange={(e) => setExpenseType(e.target.value)}
                         >
                             <option value='Fixed'>Fixed</option>
                             <option value='Variable'>Variable</option>
@@ -175,6 +169,7 @@ const AddModal = (props) => {
                         {...register("frequency", {
                             required: "Please select an option",
                         })}
+                        value={selectedFreq}
                         onChange={(e) => setSelectedFreq(e.target.value)}
                     >
                         <option value='Once'>Once</option>
@@ -224,6 +219,8 @@ const AddModal = (props) => {
                             },
                             
                         })}
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                     <FormErrorMessage>
                         {errors.amount && errors.amount.message}
@@ -247,7 +244,7 @@ const AddModal = (props) => {
                 color="#FFFFFF"
                 bg="#FF7262"
                  _hover={{ color: "#FFFFFF", bg: "#FF7262"}} 
-                 onClick={onClose}
+                 onClick={props.onClose}
             >
                 Cancel
             </Button>
@@ -259,4 +256,4 @@ const AddModal = (props) => {
     )
 }
 
-export default AddModal;
+export default EditModal;

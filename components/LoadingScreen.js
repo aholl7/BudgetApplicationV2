@@ -12,6 +12,7 @@ import {
     Input, 
     Box
   } from "@chakra-ui/react";
+  
 const LoadingScreen = () => {
     useEffect(() => {
         document.body.style.backgroundColor = "#FFFFFF";
