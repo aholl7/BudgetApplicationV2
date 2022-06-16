@@ -18,20 +18,20 @@ const LoadingScreen = () => {
         document.body.style.backgroundColor = "#FFFFFF";
     })
     return (
-        <div>
+        <Box>
             <Box marginTop="150px">
                 <Box>
                     <h1 id="loading-logo-text">Money Watcher</h1>
                 </Box>
-                <div style={{marginTop: "150px"}}> 
-                    <div style={{margin: "auto", width: "fit-content"}}>
-                        <div className="loader"></div>
-                    </div>
+                <Box style={{marginTop: "150px"}}> 
+                    <Box style={{margin: "auto", width: "fit-content"}}>
+                        <Box className="loader"></Box>
+                    </Box>
                     
-                </div>
+                </Box>
                
             </Box>
-        </div>
+        </Box>
     );
 }
 

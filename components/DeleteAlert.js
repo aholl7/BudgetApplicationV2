@@ -7,7 +7,7 @@ import {
     AlertDialogContent,
     AlertDialogOverlay,
     Button
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
 import { doc, deleteDoc } from "firebase/firestore";

@@ -116,14 +116,17 @@ const InformationTable = (props) => {
                             const amount = val.amount;
                             var internationalNumberFormat = new Intl.NumberFormat('en-US')
                             var formattedAmount = internationalNumberFormat.format(amount);
-                            
-                            if(formattedAmount.indexOf(".") === -1){
+                            var formattedRes = formattedAmount.split(".");
+
+                            if(formattedRes[1]){
+                                formattedAmount += "0";
+                            }else if(formattedAmount.indexOf(".") === -1){
                                formattedAmount += ".00";
                             }
                             return(
                                 
                                 <Tr key={id}>
-                                    <Td>{val.expense}</Td>
+                                    <Td fontWeight="bold">{val.expense}</Td>
                                     <Td>{val.expenseType}</Td>
                                     <Td>{val.frequency}</Td>
                                     <Td>${formattedAmount}</Td>
@@ -158,14 +161,17 @@ const InformationTable = (props) => {
                             const amount = val.amount;
                             var internationalNumberFormat = new Intl.NumberFormat('en-US')
                             var formattedAmount = internationalNumberFormat.format(amount);
-                            
-                            if(formattedAmount.indexOf(".") === -1){
+                            var formattedRes = formattedAmount.split(".");
+
+                            if(formattedRes[1]){
+                                formattedAmount += "0";
+                            }else if(formattedAmount.indexOf(".") === -1){
                                formattedAmount += ".00";
                             }
                             return(
                                 
                                 <Tr key={id}>
-                                    <Td>{val.income}</Td>
+                                    <Td fontWeight="bold">{val.income}</Td>
                                     <Td>{val.frequency}</Td>
                                     <Td>${formattedAmount}</Td>
                                     <Td borderTop="1px solid #EDF2F7">

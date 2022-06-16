@@ -15,10 +15,14 @@ import {
         const amount = props.data;
         var internationalNumberFormat = new Intl.NumberFormat('en-US')
         var formattedAmount = internationalNumberFormat.format(amount);
-        
-        if(formattedAmount.indexOf(".") === -1){
+        var formattedRes = formattedAmount.split(".");
+
+        if(formattedRes[1]){
+            formattedAmount += "0";
+        }else if(formattedAmount.indexOf(".") === -1){
             formattedAmount += ".00";
         }
+        
       return (
         <Stat bgColor="#FFFFFF">
             <StatLabel>{title}</StatLabel>
