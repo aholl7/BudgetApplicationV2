@@ -113,16 +113,10 @@ const InformationTable = (props) => {
                     </Thead>
                     <Tbody>
                         {expenses.map((val, id) => {
-                            const amount = val.amount;
-                            var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                            var formattedAmount = internationalNumberFormat.format(amount);
-                            var formattedRes = formattedAmount.split(".");
+                            const amount = parseFloat(val.amount);
+                            var formattedAmount = amount.toFixed(2);
+                            var formattedAmount = formattedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                            if(formattedRes[1]){
-                                formattedAmount += "0";
-                            }else if(formattedAmount.indexOf(".") === -1){
-                               formattedAmount += ".00";
-                            }
                             return(
                                 
                                 <Tr key={id}>
@@ -158,16 +152,10 @@ const InformationTable = (props) => {
                             );
                         })}
                         {income.map((val, id) => {
-                            const amount = val.amount;
-                            var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                            var formattedAmount = internationalNumberFormat.format(amount);
-                            var formattedRes = formattedAmount.split(".");
+                            const amount = parseFloat(val.amount);
+                            var formattedAmount = amount.toFixed(2);
+                            var formattedAmount = formattedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                            if(formattedRes[1]){
-                                formattedAmount += "0";
-                            }else if(formattedAmount.indexOf(".") === -1){
-                               formattedAmount += ".00";
-                            }
                             return(
                                 
                                 <Tr key={id}>

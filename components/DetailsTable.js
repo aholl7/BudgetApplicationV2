@@ -42,6 +42,7 @@ const DetailsTable = (props) => {
     const [monthlyInc, setMonthlyInc] = useState(0);
     const [semesterInc, setSemesterInc] = useState(0);
     const [yearlyInc, setYearlyInc] = useState(0);
+
     const getExpenses = () => {
         const que = query(collection(db, "Expenses"), where("uid", "==", props.uid));
             
@@ -60,49 +61,22 @@ const DetailsTable = (props) => {
                     y += 8 * parseFloat(doc.data().amount);
                     
                 }else if(doc.data().frequency === "Semester"){
-                    m += parseFloat(doc.data().amount)/4;
+                    m += parseFloat((parseFloat(doc.data().amount)/4).toFixed(2));
                     s += parseFloat(doc.data().amount);
                     y += parseFloat(doc.data().amount)*2;
                 }else if(doc.data().frequency === "Academic Year"){
-                    m += parseFloat(doc.data().amount)/8;
-                    s += parseFloat(doc.data().amount)/2;
+                    m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
+                    s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                     y += parseFloat(doc.data().amount);
                 }
             })
-                var monthlyAmount = String(m);
-                var semesterAmount = String(s);
-                var yearlyAmount = String(y);
-                var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
-
-                var monthlyRes = monthlyAmount.split(".");
-                var semesterRes = semesterAmount.split(".");
-                var yearlyRes = yearlyAmount.split(".");
-
-                if(monthlyRes[1]){
-                    monthlyAmount += "0";
-                }else if(monthlyAmount.indexOf(".") === -1){
-                    
-                    monthlyAmount += ".00";
-                }
                 
-                if(semesterRes[1]){
-                    semesterAmount += "0";
-                }else if(semesterAmount.indexOf(".") === -1){
-                    semesterAmount += ".00";
-                }
                 
-                if(yearlyRes[1]){
-                    yearlyAmount += "0";
-                }else if(yearlyAmount.indexOf(".") === -1){
-                    yearlyAmount += ".00";
-                }
+                setMonthlyExp(m);
+                setSemesterExp(s);
+                setYearlyExp(y);
                 
-                setMonthlyExp(monthlyAmount);
-                setSemesterExp(semesterAmount);
-                setYearlyExp(yearlyAmount);
+                
         })
 
     }
@@ -123,49 +97,22 @@ const DetailsTable = (props) => {
                     y += 8 * parseFloat(doc.data().amount);
                     
                 }else if(doc.data().frequency === "Semester"){
-                    m += parseFloat(doc.data().amount)/4;
+                    m += parseFloat((parseFloat(doc.data().amount)/4).toFixed(2));
                     s += parseFloat(doc.data().amount);
                     y += parseFloat(doc.data().amount)*2;
                 }else if(doc.data().frequency === "Academic Year"){
-                    m += parseFloat(doc.data().amount)/8;
-                    s += parseFloat(doc.data().amount)/2;
+                    m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
+                    s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                     y += parseFloat(doc.data().amount);
                 }
+            
             })
-            var monthlyAmount = String(m);
-                var semesterAmount = String(s);
-                var yearlyAmount = String(y);
-                var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
 
-                var monthlyRes = monthlyAmount.split(".");
-                var semesterRes = semesterAmount.split(".");
-                var yearlyRes = yearlyAmount.split(".");
-
-                if(monthlyRes[1]){
-                    monthlyAmount += "0";
-                }else if(monthlyAmount.indexOf(".") === -1){
-                    
-                    monthlyAmount += ".00";
-                }
+            
+                setMonthlyInc(m);
+                setSemesterInc(s);
+                setYearlyInc(y);
                 
-                if(semesterRes[1]){
-                    semesterAmount += "0";
-                }else if(semesterAmount.indexOf(".") === -1){
-                    semesterAmount += ".00";
-                }
-                
-                if(yearlyRes[1]){
-                    yearlyAmount += "0";
-                }else if(yearlyAmount.indexOf(".") === -1){
-                    yearlyAmount += ".00";
-                }
-                
-                setMonthlyInc(monthlyAmount);
-                setSemesterInc(semesterAmount);
-                setYearlyInc(yearlyAmount);
         })
     }
 
@@ -207,63 +154,41 @@ const DetailsTable = (props) => {
                         });
                         
                     }else if(doc.data().frequency === "Semester"){
-                        m += parseFloat(doc.data().amount)/4;
+                       
+                        
+                        m += parseFloat((parseFloat(doc.data().amount)/4).toFixed(2));
                         s += parseFloat(doc.data().amount);
                         y += parseFloat(doc.data().amount)*2;
 
                         array.push({
                             id: doc.id,
-                            monthly: parseFloat(doc.data().amount)/4,
+                            monthly: parseFloat((parseFloat(doc.data().amount)/4).toFixed(2)),
                             semester: parseFloat(doc.data().amount),
                             yearly: parseFloat(doc.data().amount)*2,
                             ...doc.data()
                         });
                         
                     }else if(doc.data().frequency === "Yearly"){
-                        m += parseFloat(doc.data().amount)/8;
-                        s += parseFloat(doc.data().amount)/2;
+                        m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
+                        s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                         y += parseFloat(doc.data().amount);
 
                         array.push({
                             id: doc.id,
-                            monthly: parseFloat(doc.data().amount)/8,
-                            semester: parseFloat(doc.data().amount)/2,
+                            monthly: parseFloat((parseFloat(doc.data().amount)/8).toFixed(2)),
+                            semester: parseFloat((parseFloat(doc.data().amount)/2).toFixed(2)),
                             yearly: parseFloat(doc.data().amount),
                             ...doc.data()
                         });
                     }
+                    
                 })
                 
-                var monthlyAmount = String(m);
-                var semesterAmount = String(s);
-                var yearlyAmount = String(y);
-                var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
+               
+                var monthlyAmount = m.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var semesterAmount = s.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var yearlyAmount = y.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-                var monthlyRes = monthlyAmount.split(".");
-                var semesterRes = semesterAmount.split(".");
-                var yearlyRes = yearlyAmount.split(".");
-
-                if(monthlyRes[1]){
-                    monthlyAmount += "0";
-                }else if(monthlyAmount.indexOf(".") === -1){
-                    
-                    monthlyAmount += ".00";
-                }
-                
-                if(semesterRes[1]){
-                    semesterAmount += "0";
-                }else if(semesterAmount.indexOf(".") === -1){
-                    semesterAmount += ".00";
-                }
-                
-                if(yearlyRes[1]){
-                    yearlyAmount += "0";
-                }else if(yearlyAmount.indexOf(".") === -1){
-                    yearlyAmount += ".00";
-                }
                 setExpenses(array);
                 setMonthly(monthlyAmount);
                 setSemester(semesterAmount);
@@ -305,63 +230,40 @@ const DetailsTable = (props) => {
                         });
                         
                     }else if(doc.data().frequency === "Semester"){
-                        m += parseFloat(doc.data().amount)/4;
+                       
+                        
+                        m += parseFloat((parseFloat(doc.data().amount)/4).toFixed(2));
                         s += parseFloat(doc.data().amount);
                         y += parseFloat(doc.data().amount)*2;
 
                         array.push({
                             id: doc.id,
-                            monthly: parseFloat(doc.data().amount)/4,
+                            monthly: parseFloat((parseFloat(doc.data().amount)/4).toFixed(2)),
                             semester: parseFloat(doc.data().amount),
                             yearly: parseFloat(doc.data().amount)*2,
                             ...doc.data()
                         });
                         
                     }else if(doc.data().frequency === "Yearly"){
-                        m += parseFloat(doc.data().amount)/8;
-                        s += parseFloat(doc.data().amount)/2;
+                        m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
+                        s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                         y += parseFloat(doc.data().amount);
 
                         array.push({
                             id: doc.id,
-                            monthly: parseFloat(doc.data().amount)/8,
-                            semester: parseFloat(doc.data().amount)/2,
+                            monthly: parseFloat((parseFloat(doc.data().amount)/8).toFixed(2)),
+                            semester: parseFloat((parseFloat(doc.data().amount)/2).toFixed(2)),
                             yearly: parseFloat(doc.data().amount),
                             ...doc.data()
                         });
                     }
+                    
                 })
                 
-                var monthlyAmount = String(m);
-                var semesterAmount = String(s);
-                var yearlyAmount = String(y);
-                var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
-
-                var monthlyRes = monthlyAmount.split(".");
-                var semesterRes = semesterAmount.split(".");
-                var yearlyRes = yearlyAmount.split(".");
-
-                if(monthlyRes[1]){
-                    monthlyAmount += "0";
-                }else if(monthlyAmount.indexOf(".") === -1){
-                    
-                    monthlyAmount += ".00";
-                }
+                var monthlyAmount = m.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var semesterAmount = s.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var yearlyAmount = y.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 
-                if(semesterRes[1]){
-                    semesterAmount += "0";
-                }else if(semesterAmount.indexOf(".") === -1){
-                    semesterAmount += ".00";
-                }
-                
-                if(yearlyRes[1]){
-                    yearlyAmount += "0";
-                }else if(yearlyAmount.indexOf(".") === -1){
-                    yearlyAmount += ".00";
-                }
                 setIncome(array);
                 setMonthly(monthlyAmount);
                 setSemester(semesterAmount);
@@ -370,8 +272,11 @@ const DetailsTable = (props) => {
         }else{
             getExpenses();
             getIncome();
+            
         }
     }
+
+    
     useEffect(() => {
         getData();
         
@@ -394,7 +299,10 @@ const DetailsTable = (props) => {
                     marginTop: "55px"
                     }}
                 >
-                    {props.type === "Expenses" ?  "EXPENSES" : props.type === "Income" ? "INCOME" : "" }
+                    {props.type === "Expenses" ? "EXPENSES" : 
+                     props.type === "Income" ? "INCOME" : 
+                     props.type === "Totals" ?  "TOTALS" : ""
+                    }
                     
                 </h1>
 
@@ -427,33 +335,11 @@ const DetailsTable = (props) => {
                             var monthlyAmount = val.monthly;
                             var semesterAmount = val.semester;
                             var yearlyAmount = val.yearly;
-                            var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                            var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                            var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                            var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
-
-                            var monthlyRes = monthlyAmount.split(".");
-                            var semesterRes = semesterAmount.split(".");
-                            var yearlyRes = yearlyAmount.split(".");
-
-                            if(monthlyRes[1]){
-                                monthlyAmount += "0";
-                            }else if(monthlyAmount.indexOf(".") === -1){
-                                
-                               monthlyAmount += ".00";
-                            }
                             
-                            if(semesterRes[1]){
-                                semesterAmount += "0";
-                            }else if(semesterAmount.indexOf(".") === -1){
-                                semesterAmount += ".00";
-                            }
-                            
-                            if(yearlyRes[1]){
-                                yearlyAmount += "0";
-                            }else if(yearlyAmount.indexOf(".") === -1){
-                                yearlyAmount += ".00";
-                            }
+                            var monthlyAmount = monthlyAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            var semesterAmount = semesterAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            var yearlyAmount = yearlyAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
                             return(
                                 
                                 <Tr key={id}>
@@ -478,33 +364,11 @@ const DetailsTable = (props) => {
                             var monthlyAmount = val.monthly;
                             var semesterAmount = val.semester;
                             var yearlyAmount = val.yearly;
-                            var internationalNumberFormat = new Intl.NumberFormat('en-US')
-                            var monthlyAmount = internationalNumberFormat.format(monthlyAmount);
-                            var semesterAmount = internationalNumberFormat.format(semesterAmount);
-                            var yearlyAmount = internationalNumberFormat.format(yearlyAmount);
-
-                            var monthlyRes = monthlyAmount.split(".");
-                            var semesterRes = semesterAmount.split(".");
-                            var yearlyRes = yearlyAmount.split(".");
-
-                            if(monthlyRes[1]){
-                                monthlyAmount += "0";
-                            }else if(monthlyAmount.indexOf(".") === -1){
-                                
-                               monthlyAmount += ".00";
-                            }
                             
-                            if(semesterRes[1]){
-                                semesterAmount += "0";
-                            }else if(semesterAmount.indexOf(".") === -1){
-                                semesterAmount += ".00";
-                            }
-                            
-                            if(yearlyRes[1]){
-                                yearlyAmount += "0";
-                            }else if(yearlyAmount.indexOf(".") === -1){
-                                yearlyAmount += ".00";
-                            }
+                            var monthlyAmount = monthlyAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            var semesterAmount = semesterAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            var yearlyAmount = yearlyAmount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
                             return(
                                 
                                 <Tr key={id}>
@@ -531,15 +395,40 @@ const DetailsTable = (props) => {
                             <>{/*#38A169*/}
                                 <Tr>
                                     <Td fontWeight="bold">Total Expenses</Td>
-                                    <Td>${monthlyExp}</Td>
-                                    <Td>${semesterExp}</Td>
-                                    <Td>${yearlyExp}</Td>
+                                    <Td>${monthlyExp.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
+                                    <Td>${semesterExp.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
+                                    <Td>${yearlyExp.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
                                 </Tr>
+                                
                                 <Tr>
                                     <Td fontWeight="bold">Total Income</Td>
-                                    <Td>{monthlyInc}</Td>
-                                    <Td>${semesterInc}</Td>
-                                    <Td>${yearlyInc}</Td>
+                                    <Td>${monthlyInc.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
+                                    <Td>${semesterInc.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
+                                    <Td>${yearlyInc.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>
+                                </Tr>
+                                <Tr fontWeight="bold">
+                                    <Td>Difference</Td>
+                                    <Td
+                                        color={
+                                            (monthlyInc - monthlyExp) < 0? "#E53E3E" : "#38A169"
+                                        }
+                                    >
+                                        ${(monthlyInc - monthlyExp).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    </Td>
+                                    <Td
+                                        color={
+                                            (monthlyInc - monthlyExp) < 0? "#E53E3E" : "#38A169"
+                                        }
+                                    >
+                                        ${(semesterInc - semesterExp).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    </Td>
+                                    <Td
+                                        color={
+                                            (monthlyInc - monthlyExp) < 0? "#E53E3E" : "#38A169"
+                                        }
+                                    >
+                                        ${(yearlyInc - yearlyExp).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    </Td>
                                 </Tr>
 
                             </>

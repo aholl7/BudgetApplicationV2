@@ -13,15 +13,12 @@ import {
         var isNegative = props.data < 0 ? true : false;
         var title = props.frequency + " " + props.type;
         const amount = props.data;
-        var internationalNumberFormat = new Intl.NumberFormat('en-US')
-        var formattedAmount = internationalNumberFormat.format(amount);
-        var formattedRes = formattedAmount.split(".");
-
-        if(formattedRes[1]){
-            formattedAmount += "0";
-        }else if(formattedAmount.indexOf(".") === -1){
-            formattedAmount += ".00";
-        }
+        
+       
+        var formattedAmount = amount.toFixed(2);
+        var formattedAmount = formattedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        
+        
         
       return (
         <Stat bgColor="#FFFFFF">

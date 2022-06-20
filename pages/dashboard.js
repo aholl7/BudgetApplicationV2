@@ -1,6 +1,4 @@
 import Head from "next/head"
-import Image from "next/image"
-import Logo from "../public/images/logo.png";
 import { useState, useEffect } from "react";
 import { db, auth } from "../js/firebase.js";
 import {onAuthStateChanged} from "firebase/auth";
@@ -14,6 +12,7 @@ import {
     Button,
     Box,
 } from "@chakra-ui/react";
+import NavBar from "../components/NavBar";
 import LoadingScreen from "../components/LoadingScreen";
 import DashSection from "../components/DashSection";
 
@@ -21,12 +20,7 @@ const Home = () => {
     const [userInfo, setUserInfo] = useState({uid: "", firstName: "", lastName: "", email: ""})
     const [loading, setLoading] = useState(true);
     
-  const signOut = (e) => {
-    e.preventDefault();
-    auth.signOut();
-    const url = "/login";
-    window.location.href = url;
-  }
+  
 
   const getUserInfo = async (uid) => {
     const docRef = doc(db, "users", uid);
@@ -65,7 +59,8 @@ const Home = () => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         
-        <main>
+        <main style={{position: "relative"}}>
+            {/*
             <Grid templateColumns="repeat(3, 1fr)" gap={0}>
             <GridItem colSpan={1} display="flex" marginTop={{base:"8px", md: "20px"}}>
                 <Box display={{base: "none", md: "block"}}>
@@ -93,16 +88,17 @@ const Home = () => {
                 </Button>
             </GridItem>
 
-            </Grid>
+    </Grid>*/}
+            <NavBar auth={auth}/>
             <Box>
             
             </Box>
             <Box 
-            style={{
-                width: "90%", 
-                marginLeft: "auto", 
-                marginRight: "auto"
-            }}
+                style={{
+                    width: "90%", 
+                    marginLeft: "auto", 
+                    marginRight: "auto",
+                }}
             >
                 <h1 
                     style={{

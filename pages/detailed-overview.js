@@ -14,8 +14,8 @@ import {
     Button,
     Box,
 } from "@chakra-ui/react";
+import NavBar from "../components/NavBar";
 import LoadingScreen from "../components/LoadingScreen";
-import DashSection from "../components/DashSection";
 import DetailsTable from "../components/DetailsTable";
 
 const DetailedOverview = () => {
@@ -67,37 +67,11 @@ const DetailedOverview = () => {
         </Head>
         
         <main>
-            <Grid templateColumns="repeat(3, 1fr)" gap={0}>
-            <GridItem colSpan={1} display="flex" marginTop={{base:"8px", md: "20px"}}>
-                <Box display={{base: "none", md: "block"}}>
-                <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
-                </Box>
-                <Box marginLeft={{base: "10px", md: "-30px"}}>
-                    <h1 id="logo-text">Money Watcher</h1>
-                </Box>
-                
-            </GridItem>
-
-            <GridItem colSpan={2} marginTop="20px" textAlign="right">
-            
-                <Button 
-                    color="#FFFFFF"
-                    bg="#0ACF83"
-                    variant="link"
-                    width="110px"
-                    height="40px"
-                    _hover={{ color: "#0ACF83", bg: "#FFFFFF"}}
-                    marginRight={{base: "0px", md: "100px"}}
-                    onClick={(e) => signOut(e)}
-                >
-                    Sign Out
-                </Button>
-            </GridItem>
-
-            </Grid>
+            <NavBar auth={auth}/>
             <Box>
             
             </Box>
+            
             <Box 
                 
                 width="90%"
@@ -119,9 +93,9 @@ const DetailedOverview = () => {
                 <DetailsTable uid={userInfo.uid} type={"Expenses"}/>
                 <Box marginTop="40px"></Box>
                 <DetailsTable uid={userInfo.uid} type={"Income"}/>
-                {/*
+                
                 <Box marginTop="40px"></Box>
-                <DetailsTable uid={userInfo.uid} type={"Totals"}/>*/}
+                <DetailsTable uid={userInfo.uid} type={"Totals"}/>
             </Box>
             <Box marginTop="40px"></Box>
             
