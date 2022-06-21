@@ -1,17 +1,5 @@
-import Image from "next/image";
-import Logo from "../public/images/logo.png";
-import { useState, useEffect } from "react";
-import { 
-    Grid, 
-    GridItem, 
-    Button,   
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-    Input, 
-    Box
-  } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Box } from "@chakra-ui/react";
   
 const LoadingScreen = () => {
     useEffect(() => {

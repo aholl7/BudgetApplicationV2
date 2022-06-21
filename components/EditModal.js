@@ -14,14 +14,18 @@ import {
     FormLabel,
     FormErrorMessage,
     Select,
-    Checkbox, 
-    CheckboxGroup,
-    Stack
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
-import { collection, addDoc, getDoc, doc, updateDoc, query, where, getDocs } from "firebase/firestore"; 
+import { 
+    collection, 
+    doc, 
+    updateDoc, 
+    query, 
+    where, 
+    getDocs 
+} from "firebase/firestore"; 
 
-import { db, auth } from "../js/firebase.js";
+import { db } from "../js/firebase.js";
 //https://www.bestcolleges.com/resources/budgeting-in-college/
 const EditModal = (props) => {
     const {

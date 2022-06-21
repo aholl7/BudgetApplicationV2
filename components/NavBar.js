@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import {HamburgerIcon} from '@chakra-ui/icons'
+import { HamburgerIcon } from '@chakra-ui/icons'
 import {
     Drawer,
     DrawerBody,

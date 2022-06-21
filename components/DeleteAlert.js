@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
     AlertDialog,
     AlertDialogBody,
@@ -8,10 +7,8 @@ import {
     AlertDialogOverlay,
     Button
 } from '@chakra-ui/react';
-import { useDisclosure } from '@chakra-ui/react'
-import { useForm } from "react-hook-form";
 import { doc, deleteDoc } from "firebase/firestore";
-import { db, auth } from "../js/firebase.js";
+import { db } from "../js/firebase.js";
 
 const DeleteAlert = (props) => {
     

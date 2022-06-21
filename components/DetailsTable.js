@@ -1,34 +1,22 @@
 import { db, auth } from "../js/firebase.js";
 import { useState, useEffect, useRef } from "react";
-import {getAdditionalUserInfo, onAuthStateChanged} from "firebase/auth";
 import { 
     collection, 
     query, 
     where, 
-    getDocs, 
     onSnapshot
 } from "firebase/firestore";
 import { 
-    Grid, 
-    GridItem, 
-    Button,
     Box,
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
     TableCaption,
     TableContainer,
-    Text
-  } from "@chakra-ui/react";
-  import { EditIcon, DeleteIcon} from '@chakra-ui/icons'
-  import { useDisclosure } from '@chakra-ui/react'
-  import EditModal from "./EditModal.js";
-  import DeleteAlert from "./DeleteAlert.js"
-
+} from "@chakra-ui/react";
 
 const DetailsTable = (props) => {
     const [expenses, setExpenses] = useState([]);
@@ -281,7 +269,7 @@ const DetailsTable = (props) => {
         getData();
         
         
-    })
+    }, [])
       return (
         <Box>
             <Box 

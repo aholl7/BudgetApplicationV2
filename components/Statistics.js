@@ -1,13 +1,8 @@
-import { useState, useEffect } from "react";
 import {
     Stat,
     StatLabel,
     StatNumber,
-    StatHelpText,
-    StatArrow,
-    StatGroup,
-    Box
-  } from '@chakra-ui/react';
+} from '@chakra-ui/react';
 
   const Statistics = (props) => {
         var isNegative = props.data < 0 ? true : false;

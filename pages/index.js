@@ -7,15 +7,10 @@ import HomeImage from "../public/images/homeImage.png";
 import { 
   Grid, 
   GridItem, 
-  Button,   
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input, 
+  Button,
   Box
 } from "@chakra-ui/react";
-import { db, auth } from "../js/firebase.js";
+import { auth } from "../js/firebase.js";
 
 const Home = () => {
   const openSignUp = (e) => {

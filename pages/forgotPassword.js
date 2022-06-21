@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { db, auth } from "../js/firebase.js";
+import { auth } from "../js/firebase.js";
 
 const ForgotPassword = () => {
     const {

@@ -1,13 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
-import { 
-    Button, 
-    Box,
-} from "@chakra-ui/react"
+import { Button, Box } from "@chakra-ui/react"
 import VerificationImage from "../public/images/verification-image.png";
 import {sendEmailVerification } from "firebase/auth";
-import { db, auth } from "../js/firebase.js";
+import { auth } from "../js/firebase.js";
 
 const Verification = () => {
     useEffect(()=>{

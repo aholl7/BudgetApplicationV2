@@ -61,6 +61,7 @@ const InformationTable = (props) => {
                         ...doc.data()
                     });
                 })
+                console.log(props.uid);
                 setExpenses(array);
             })
         }else{
@@ -93,8 +94,10 @@ const InformationTable = (props) => {
             }>
             <TableContainer width="100%" border="1px solid lightgrey" borderRadius="5px" marginTop="30px">
                 <Table variant='simple' bgColor="#FFFFFF" size="lg">
-                {props.type === "Expenses" && expenses.length === 0 ||
-                 props.type === "Income" && income.length === 0 &&
+                {props.type === "Expenses" && expenses.length === 0 &&
+                    <TableCaption bgColor="#FFFFFF">There are no records to display</TableCaption>
+                }
+                {props.type === "Income" && income.length === 0 &&
                     <TableCaption bgColor="#FFFFFF">There are no records to display</TableCaption>
                 }
                 

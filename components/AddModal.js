@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     Modal,
     ModalOverlay,
@@ -12,15 +12,12 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    Select,
-    Checkbox, 
-    CheckboxGroup,
-    Stack
-  } from '@chakra-ui/react'
+    Select
+} from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react'
 import { useForm } from "react-hook-form";
 import { collection, addDoc, getDocs, query, where} from "firebase/firestore"; 
-import { db, auth } from "../js/firebase.js";
+import { db } from "../js/firebase.js";
 //https://www.bestcolleges.com/resources/budgeting-in-college/
 const AddModal = (props) => {
     const {

@@ -1,19 +1,4 @@
-import { db, auth } from "../js/firebase.js";
-import { useState, useEffect } from "react";
-import { 
-    collection, 
-    query, 
-    where, 
-    getDocs, 
-    onSnapshot
-} from "firebase/firestore";
-import { 
-    Grid, 
-    GridItem, 
-    Button,
-    Box,
-} from "@chakra-ui/react";
-import LoadingScreen from "../components/LoadingScreen";
+import { Box } from "@chakra-ui/react";
 import InformationTable from "../components/InformationTable";
 import AddModal from "../components/AddModal";
 import StatisticsSection from "./StatisticsSection.js";

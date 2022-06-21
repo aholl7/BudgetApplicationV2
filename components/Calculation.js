@@ -1,22 +1,11 @@
-import {
-    Stat,
-    StatLabel,
-    StatNumber,
-    StatHelpText,
-    StatArrow,
-    StatGroup,
-    ControlBoxOptions,
-    Box
-  } from '@chakra-ui/react';
-  import Statistics from './Statistics';
-  import { db, auth } from "../js/firebase.js";
+import { StatGroup, Box } from '@chakra-ui/react';
+import Statistics from './Statistics';
+import { db} from "../js/firebase.js";
 import { useState, useEffect } from "react";
-import {getAdditionalUserInfo, onAuthStateChanged} from "firebase/auth";
 import { 
     collection, 
     query, 
     where, 
-    getDocs, 
     onSnapshot
 } from "firebase/firestore";
 

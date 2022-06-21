@@ -24,7 +24,11 @@ import {
     doc,
   } from  "firebase/firestore";
   import { db, auth } from "../js/firebase.js";
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+  import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    sendEmailVerification 
+} from "firebase/auth";
 
 const SignUp = () => {
     const {
