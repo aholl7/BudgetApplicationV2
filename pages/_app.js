@@ -1,6 +1,6 @@
 import "../styles/globals.css"
 import { ChakraProvider } from "@chakra-ui/react"
-import { AuthProvider } from "../Authentication/AuthContext"
+import { AuthProvider } from "../authentication/AuthContext"
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>

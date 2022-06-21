@@ -4,8 +4,8 @@ import { auth } from "../js/firebase.js";
 import { Box } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import DetailsTable from "../components/DetailsTable";
-import AuthRoute from "../Authentication/AuthRoute";
-import { AuthContext } from "../Authentication/AuthContext.js";
+import AuthRoute from "../authentication/AuthRoute";
+import { AuthContext } from "../authentication/AuthContext.js";
 
 const DetailedOverview = () => {
 
