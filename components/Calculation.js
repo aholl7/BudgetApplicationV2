@@ -1,6 +1,6 @@
-import { StatGroup, Box } from '@chakra-ui/react';
-import Statistics from './Statistics';
-import { db} from "../js/firebase.js";
+import { StatGroup, Box, Text, Grid, GridItem } from '@chakra-ui/react';
+import StatisticsCard from './Statistics';
+import { db } from "../js/firebase.js";
 import { useState, useEffect } from "react";
 import { 
     collection, 
@@ -91,18 +91,22 @@ import {
         getData();
     }, [])
       return (
-        <Box 
-            bgColor="#FFFFFF" 
-            borderRadius="5px" 
-            border="2px solid #EDF2F7" 
-            p={4}
+        <Box
             marginTop="20px"
         >
-            <StatGroup>
-                <Statistics type={"Difference"} frequency={"Monthly"} data={monthlyInc - monthlyExp}/><br />
-                <Statistics type={"Difference"} frequency={"Semester"} data={semesterInc - semesterExp}/><br />
-                <Statistics type={"Difference"} frequency={"Academic Year"} data={yearlyInc - yearlyExp}/><br />
-            </StatGroup>
+           
+           <Grid templateColumns='repeat(3, 1fr)' gap={6} >
+            <GridItem w='80%'>
+                <StatisticsCard type={"Difference"} frequency={"Monthly"} data={monthlyInc - monthlyExp}/>
+            </GridItem>
+            <GridItem w='80%'>
+                <StatisticsCard type={"Difference"} frequency={"Semester"} data={semesterInc - semesterExp}/>
+            </GridItem>
+            <GridItem w='80%'>
+                <StatisticsCard type={"Difference"} frequency={"Academic Year"} data={yearlyInc - yearlyExp}/>
+            </GridItem>
+           </Grid>
+            
         </Box>
         
       );

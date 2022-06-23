@@ -32,6 +32,14 @@ const AddModal = (props) => {
     const [selectedFreq, setSelectedFreq] = useState("");
     const [monthlyChecked, setMonthlyChecked] = useState(false);
     const [semesterChecked, setSemesterChecked] = useState(false);
+
+    var buttonModeColor;
+    if(props.colorMode === "light"){
+        buttonModeColor = props.color
+    }else{
+        buttonModeColor="#0ACF83"
+    }
+
     const handleMonthlyChange = (event) => {
       setMonthlyChecked(event.target.checked);
     };
@@ -108,17 +116,17 @@ const AddModal = (props) => {
       const returnNameNotTaken = async (name) => {
         return await nameNotTaken(name);
       };
+      
 
     
     return (
       <>
         <Button 
-            color="#FFFFFF"
-            bg="#0ACF83"
-            width={{base: "50%", md: "30%"}}
-            _hover={{ color: "#FFFFFF", bg: "#0ACF83"}}
-            marginTop="20px"
+            colorScheme={props.colorMode === "light" ? "purple" : "green"}
+            width="100%"
+            _hover={{ color: "#FFFFFF", bg: buttonModeColor}} //"#0ACF83"
             onClick={onOpen}
+            variant="outline"
         >
             Add {text}
         </Button>

@@ -12,6 +12,9 @@ import {
     Grid, 
     GridItem, 
     Button,
+    Flex,
+    Spacer,
+    Text,
     Box,
     Table,
     Thead,
@@ -25,6 +28,7 @@ import {
   } from "@chakra-ui/react";
   import { EditIcon, DeleteIcon} from '@chakra-ui/icons'
   import { useDisclosure } from '@chakra-ui/react'
+  import AddModal from "./AddModal.js";
   import EditModal from "./EditModal.js";
   import DeleteAlert from "./DeleteAlert.js"
 
@@ -85,28 +89,61 @@ const InformationTable = (props) => {
         
     }, [isOpen, selectedElem, selectedElemAmount, selectedElemFrequency, selectedElemName, selectedElemType])
       return (
-        <Box>
+        <Box
+            borderRadius="5px" 
+            boxShadow="0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)"
+            marginTop="20px"
+            backgroundColor={props.bg}
+            
+        >
+            <Box paddingTop="15px" p={4}>
+                <Flex>
+                    <Box>
+                        <Text 
+                            fontSize='xl' 
+                            fontWeight="bold" 
+                            color={props.color}
+                        >
+                            {props.type}
+                        </Text>
+                    </Box>
+                    <Spacer />
+                    <Box>
+                        <AddModal 
+                            uid={props.uid} 
+                            type={props.type}
+                            bg={props.bg} 
+                            color={props.color}
+                            colorMode={props.colorMode}
+                        />
+                    </Box>
+                
+                </Flex>
+            </Box>
+            
         <Box 
-            bgColor={
-                props.type === "Expenses" && expenses.length === 0 ||
-                props.type === "Income" && income.length === 0 ? 
-                "#FFFFFF" : ""
-            }>
-            <TableContainer width="100%" border="1px solid lightgrey" borderRadius="5px" marginTop="30px">
-                <Table variant='simple' bgColor="#FFFFFF" size="lg">
+            
+           
+        >
+                
+            <TableContainer 
+                width="100%" 
+                borderRadius="5px" 
+                height="392px"
+                overflowY="auto"
+            >
+                <Table variant='simple' size="lg">
                 {props.type === "Expenses" && expenses.length === 0 &&
-                    <TableCaption bgColor="#FFFFFF">There are no records to display</TableCaption>
+                    <TableCaption >There are no records to display</TableCaption>
                 }
                 {props.type === "Income" && income.length === 0 &&
-                    <TableCaption bgColor="#FFFFFF">There are no records to display</TableCaption>
+                    <TableCaption>There are no records to display</TableCaption>
                 }
                 
                     <Thead>
                     <Tr>
                         <Th>Name</Th>
-                        {props.type === "Expenses" && (
-                            <Th>Type</Th>
-                        )}
+                        
                         
                         <Th>Frequency</Th>
                         <Th>Amount</Th>
@@ -114,7 +151,7 @@ const InformationTable = (props) => {
                         
                     </Tr>
                     </Thead>
-                    <Tbody>
+                    <Tbody >
                         {expenses.map((val, id) => {
                             const amount = parseFloat(val.amount);
                             var formattedAmount = amount.toFixed(2);
@@ -124,7 +161,6 @@ const InformationTable = (props) => {
                                 
                                 <Tr key={id}>
                                     <Td fontWeight="bold">{val.expense}</Td>
-                                    <Td>{val.expenseType}</Td>
                                     <Td>{val.frequency}</Td>
                                     <Td>${formattedAmount}</Td>
                                     <Td borderTop="1px solid #EDF2F7">

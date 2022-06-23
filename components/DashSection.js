@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Grid, GridItem } from "@chakra-ui/react";
 import InformationTable from "../components/InformationTable";
 import AddModal from "../components/AddModal";
 import StatisticsSection from "./StatisticsSection.js";
@@ -10,21 +10,17 @@ const DashSection = (props) => {
             
             {props.type === "Expenses" || props.type === "Income" ?
                 (
-                    <Box>
-                        <h1 
-                            style={{
-                            color: "#0ACF83", 
-                            fontSize: "38px", 
-                            fontWeight: "bold",
-                            marginTop: "35px"
-                            }}
-                        >
-                            {props.type === "Expenses" ?  "EXPENSES" : props.type === "Income" ? "INCOME" : "" }
-                            
-                        </h1>
-                        <StatisticsSection uid={props.uid} type={props.type}/>
-                        <InformationTable uid={props.uid} type={props.type}/>
-                        <AddModal uid={props.uid} type={props.type}/>
+                    <Box marginTop="20px">
+                        <Grid templateColumns='repeat(3, 1fr)' gap={2}>
+                            <GridItem colSpan={1}>
+                                <StatisticsSection uid={props.uid} type={props.type} bg={props.bg} color={props.color} colorMode={props.colorMode}/>
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <InformationTable uid={props.uid} type={props.type} bg={props.bg} color={props.color} colorMode={props.colorMode}/>
+                            </GridItem>
+                        </Grid>
+                        
+                        
                     </Box>
                 ) : (
                     

@@ -1,6 +1,7 @@
 import {
     StatGroup,
-    Box
+    Box,
+    Text
 } from '@chakra-ui/react';
 import Statistics from './Statistics';
 import { db } from "../js/firebase.js";
@@ -13,7 +14,12 @@ import {
 } from "firebase/firestore";
 
   const StatisticsSection = (props) => {
-      
+    var type;
+    if(props.type === "Expenses"){
+        type = "Expense";
+    }else{
+        type = props.type;
+    }
     const [monthly, setMonthly] = useState(0);
     const [semester, setSemester] = useState(0);
     const [yearly, setYearly] = useState(0);
@@ -89,18 +95,40 @@ import {
     }, [])
       return (
         <Box 
-            bgColor="#FFFFFF" 
+            bgColor={props.bg}
             borderRadius="5px" 
-            border="2px solid #EDF2F7" 
+            boxShadow="0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)"
             p={4}
             marginTop="20px"
         >
-            <StatGroup>
-
-                <Statistics type={props.type} frequency={"Monthly"} data={monthly}/><br />
-                <Statistics type={props.type} frequency={"Semester"} data={semester}/><br />
-                <Statistics type={props.type} frequency={"Academic Year"} data={yearly}/><br />
-            </StatGroup>
+            <Text fontSize='xl' fontWeight="bold" color={props.color}>{type} Totals</Text>
+            
+            <Box marginTop="30px">
+                <Statistics 
+                    type={props.type} 
+                    frequency={"Monthly"} 
+                    data={monthly} 
+                    colorMode={props.colorMode}
+                    bg={props.bg} 
+                    color={props.color}
+                /><br />
+                <Statistics 
+                    type={props.type} 
+                    frequency={"Semester"} 
+                    data={semester} 
+                    colorMode={props.colorMode}
+                    bg={props.bg} 
+                    color={props.color}
+                /><br />
+                <Statistics 
+                    type={props.type} 
+                    frequency={"Academic Year"} 
+                    data={yearly} 
+                    colorMode={props.colorMode}
+                    bg={props.bg} 
+                    color={props.color}
+                /><br />
+            </Box>
         </Box>
         
       );

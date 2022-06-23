@@ -1,15 +1,33 @@
 import Head from "next/head"
 import { useContext } from "react";
 import { auth } from "../js/firebase.js";
-import { Box } from "@chakra-ui/react";
-import NavBar from "../components/NavBar";
+import { 
+    Box, 
+    Grid, 
+    GridItem, 
+    useColorMode, 
+    useColorModeValue, 
+    Button, 
+    IconButton,
+    Text
+} from "@chakra-ui/react";
+import NavBar from "../components/NavBar2";
+import { HamburgerIcon, MoonIcon } from '@chakra-ui/icons';
 import DashSection from "../components/DashSection";
+import MobileNavBar from "../components/MobileNavBar";
 import AuthRoute from "../authentication/AuthRoute";
 import { AuthContext } from "../authentication/AuthContext.js";
 
 const Home = () => {
-    const { userInfo } = useContext(AuthContext)
-    document.body.style.backgroundColor = "#221266";
+    const { userInfo } = useContext(AuthContext);
+
+    const { colorMode, toggleColorMode } = useColorMode();
+
+    const bgNav = useColorModeValue('white', 'gray.900');
+    const bg = useColorModeValue('gray.200', 'gray.800');
+    const navColor = useColorModeValue('gray.400', 'white');
+    const color = useColorModeValue('#221266', 'white');
+   
     return (
         <AuthRoute>
             <Box>
@@ -20,32 +38,63 @@ const Home = () => {
                 </Head>
     
                 <main style={{position: "relative"}}>
-                    <NavBar auth={auth}/>
-                    <Box />
-                    <Box 
-                        style={{
-                            width: "90%", 
-                            marginLeft: "auto", 
-                            marginRight: "auto",
-                        }}
-                    >
-                        <h1 
-                            style={{
-                            color: "#0ACF83", 
-                            fontSize: "38px", 
-                            fontWeight: "bold",
-                            marginTop: "35px"
-                            }}
-                        >
-                            Welcome, {userInfo.firstName}!
-                        </h1>
-                    
-                        <DashSection uid={userInfo.uid} type={"Difference"}/>
-                        <DashSection uid={userInfo.uid} type={"Expenses"}/>
-                        <DashSection uid={userInfo.uid} type={"Income"}/>
-                        <Box paddingBottom="80px"></Box>  
-                    
-                    </Box>
+                <Grid templateColumns='repeat(5, 1fr)' gap={0}>
+                    <GridItem colSpan={1} display={{base: "none", md: "block"}} h="100vh" bg={bgNav}>
+                        <NavBar bg={bgNav} color={navColor} colorMode={colorMode}/>
+                    </GridItem>
+                    <GridItem colSpan={{base: 5, md: 4}}  h="100vh" bg={bg} overflowY="scroll">
+                        <Box>
+                            <Box 
+                                float="right" 
+                                marginTop="20px" 
+                                marginRight="40px" 
+                                display={{base: "none", md: "block"}}
+                            >
+                                <IconButton
+                                    color={colorMode === 'light' ? 'gray.400' : 'white'}
+                                    icon={<MoonIcon />}
+                                    onClick={toggleColorMode}
+                                    fontSize="20px"
+                                    display={{base: "none", md: "block"}}
+                                    
+                                />
+                                
+                            </Box>
+                            <MobileNavBar colorMode={colorMode} enableDark={toggleColorMode}/>
+                        </Box>
+                        <Box marginTop="65px" marginLeft="20px">
+                            <Text fontSize='3xl' fontWeight="bold" color={color}>Dashboard</Text>
+
+                            <Box marginTop="40px">
+                                <DashSection 
+                                    uid={userInfo.uid} 
+                                    type={"Difference"} 
+                                    bg={bgNav} 
+                                    color={color} 
+                                    colorMode={colorMode}
+                                />
+                                <DashSection 
+                                    uid={userInfo.uid} 
+                                    type={"Expenses"} 
+                                    bg={bgNav} 
+                                    color={color} 
+                                    colorMode={colorMode}
+                                />
+                                <DashSection 
+                                    uid={userInfo.uid} 
+                                    type={"Income"} 
+                                    bg={bgNav} 
+                                    color={color} 
+                                    colorMode={colorMode}
+                                />
+                            </Box>
+                            <Box height="40px"></Box>
+                        </Box>
+                        
+                        
+                        
+                    </GridItem>
+                </Grid>
         
                 </main>
             </Box>

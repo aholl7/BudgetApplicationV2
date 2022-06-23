@@ -32,7 +32,7 @@ const NavBar = (props) => {
 
     const viewDashboard = (e) => {
         e.preventDefault();
-        const url = "/dashboard-test";
+        const url = "/dashboard";
         window.location.href = url;
     }
 
@@ -56,7 +56,7 @@ const NavBar = (props) => {
                 <Box marginTop="20px">
                     <h1 id={props.colorMode === "light" ? "logo-text-purple" : "logo-text-green-main"}>Money Watcher</h1>
                 </Box>
-                <Box marginTop="35px" marginLeft="10px">
+                <Box marginTop="50px" marginLeft="10px">
                     <Box 
                         width="100%" 
                         borderRight={
@@ -75,7 +75,10 @@ const NavBar = (props) => {
                                 }
                                 height="40px"
                                 variant="link"
-                                _hover={{ color: "#0ACF83"}}
+                                _hover={{ 
+                                    color: props.colorMode === "light" ?  
+                                    "#221266" : "#0ACF83"
+                                }}
                                 justifyContent="flex-start"
                                 onClick={(e) => viewDashboard(e)}
                                 leftIcon={<AiFillHome />}
@@ -105,7 +108,10 @@ const NavBar = (props) => {
                                 }
                                 height="40px"
                                 variant="link"
-                                _hover={{ color: "#0ACF83"}}
+                                _hover={{ 
+                                    color: props.colorMode === "light" ?  
+                                    "#221266" : "#0ACF83"
+                                }}
                                 justifyContent="flex-start"
                                 onClick={(e) => viewOverview(e)}
                                 leftIcon={<AiFillSignal />}
@@ -121,7 +127,10 @@ const NavBar = (props) => {
                                 color={props.color}
                                 height="40px"
                                 variant="link"
-                                _hover={{ color: "#0ACF83"}}
+                                _hover={{ 
+                                    color: props.colorMode === "light" ?  
+                                    "#221266" : "#0ACF83"
+                                }}
                                 justifyContent="flex-start"
                                 onClick={(e) => signOut(e)}
                                 leftIcon={<AiOutlineRight />}
