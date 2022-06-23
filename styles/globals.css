@@ -22,6 +22,20 @@ a {
 
 }
 
+#logo-text-purple{
+  color: #221266;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#logo-text-green-main{
+  color: #0ACF83;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+}
+
 #loading-logo-text{
   color: #0ACF83;
   font-size: 70px;

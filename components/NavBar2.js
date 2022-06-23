@@ -1,5 +1,6 @@
-import { useRef } from "react";
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { useState, useEffect, useRef } from "react";
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { AiFillHome, AiFillSignal, AiOutlineRight } from 'react-icons/ai';
 import {
     Drawer,
     DrawerBody,
@@ -13,13 +14,14 @@ import {
     Box, 
     Button,  
     IconButton, 
-    useDisclosure 
+    useDisclosure,
   } from '@chakra-ui/react';
 import Image from "next/image"
 import Logo from "../public/images/logo.png";
 
 const NavBar = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [documentTitle, setDocumentTitle] = useState(null);
     const btnRef = useRef();
     const signOut = (e) => {
         e.preventDefault();
@@ -30,7 +32,7 @@ const NavBar = (props) => {
 
     const viewDashboard = (e) => {
         e.preventDefault();
-        const url = "/dashboard";
+        const url = "/dashboard-test";
         window.location.href = url;
     }
 
@@ -40,60 +42,98 @@ const NavBar = (props) => {
         window.location.href = url;
     }
 
+    useEffect(() =>{
+        setDocumentTitle(document.title);
+    }, [documentTitle])
 
+    
     return (
-        <Box >
+        <Box>
 
         
             <Box display={{base: "none", sm: "block"}}>
-                <Flex marginTop="30px" width="96%">
-                    <Flex>
-                        <Box display={{base: "none", md: "block"}}>
-                            <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
-                        </Box>
-                        <Box marginLeft={{base: "10px", md: "-30px"}}>
-                            <h1 id="logo-text">Money Watcher</h1>
-                        </Box>
-                    </Flex>
-                    <Spacer />
-                    <Flex>
-                        <Button 
-                            color="#FFFFFF"
-                            width="110px"
-                            height="40px"
-                            variant="link"
-                            _hover={{ color: "#0ACF83"}}
-                            marginRight= "10px"
-                            onClick={(e) => viewDashboard(e)}
-                        >
-                            Dashboard
-                        </Button>
-                        <Button 
-                            color="#FFFFFF"
-                            width="110px"
-                            height="40px"
-                            variant="link"
-                            _hover={{ color: "#0ACF83"}}
-                            marginRight= "10px"
-                            onClick={(e) => viewOverview(e)}
-                        >
+                    
+                <Box marginTop="20px">
+                    <h1 id={props.colorMode === "light" ? "logo-text-purple" : "logo-text-green-main"}>Money Watcher</h1>
+                </Box>
+                <Box marginTop="35px" marginLeft="10px">
+                    <Box 
+                        width="100%" 
+                        borderRight={
+                            documentTitle === "Dashboard" ?
+                                props.colorMode === "light" ?  
+                                    "3px solid #221266" : "3px solid #0ACF83"
+                                : ""
+                        }
+                >
+                            <Button 
+                                color={
+                                    documentTitle === "Dashboard" ?
+                                    props.colorMode === "light" ?  
+                                        "#221266" : "#0ACF83"
+                                    : props.color
+                                }
+                                height="40px"
+                                variant="link"
+                                _hover={{ color: "#0ACF83"}}
+                                justifyContent="flex-start"
+                                onClick={(e) => viewDashboard(e)}
+                                leftIcon={<AiFillHome />}
+                                fontSize="18px"
+                                fontWeight="medium"
+                            >
+                                Dashboard
+                            </Button>
+                    </Box>
+                    <Box 
+                        width="100%" 
+                        marginTop="25px" 
+                        borderRight={
+                            documentTitle === "Overview" ?
+                                props.colorMode === "light" ?  
+                                    "3px solid #221266" : "3px solid #0ACF83"
+                                : ""
+                        }
+                    >
+                            
+                            <Button 
+                                color={
+                                    documentTitle === "Overview" ?
+                                    props.colorMode === "light" ?  
+                                        "#221266" : "#0ACF83"
+                                    : props.color
+                                }
+                                height="40px"
+                                variant="link"
+                                _hover={{ color: "#0ACF83"}}
+                                justifyContent="flex-start"
+                                onClick={(e) => viewOverview(e)}
+                                leftIcon={<AiFillSignal />}
+                                fontSize="18px"
+                                fontWeight="medium"
+                            >
                             Overview
                         </Button>
-                        <Button 
-                            color="#FFFFFF"
-                            bg="#0ACF83"
-                            variant="link"
-                            width="110px"
-                            height="40px"
-                            _hover={{ color: "#0ACF83", bg: "#FFFFFF"}}
-                        
-                            onClick={(e) => signOut(e)}
-                        >
+                    </Box>
+                    <Box width="100%" marginTop="25px" borderRight="">
+                            
+                            <Button 
+                                color={props.color}
+                                height="40px"
+                                variant="link"
+                                _hover={{ color: "#0ACF83"}}
+                                justifyContent="flex-start"
+                                onClick={(e) => signOut(e)}
+                                leftIcon={<AiOutlineRight />}
+                                fontSize="18px"
+                                fontWeight="medium"
+                            >
                             Sign Out
                         </Button>
-                    </Flex>
-                    
-                </Flex>
+                        
+                    </Box>
+
+                </Box>
             </Box>
             <Box display={{base: "block", sm: "none"}} width="100%">
                 <Flex marginTop="30px" width="96%">
@@ -167,7 +207,12 @@ const NavBar = (props) => {
                         
                         </DrawerBody>
 
-                        
+                        <DrawerFooter>
+                            <Button variant='outline' mr={3} onClick={onClose}>
+                            Cancel
+                            </Button>
+                            <Button colorScheme='blue'>Save</Button>
+                        </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
                     </Box> 

@@ -31,7 +31,7 @@ const Home = () => {
     }
   }
   useEffect(()=>{
-    document.body.style.backgroundColor = "#221266";
+    //document.body.style.backgroundColor = "#221266";
   },[]);
   return (
     <Box>
@@ -42,7 +42,8 @@ const Home = () => {
       </Head>
       
       <main>
-        <Grid templateColumns="repeat(3, 1fr)" gap={0}>
+        <Box bgGradient='linear(to-l, #7928CA, #221266)' height="100vh">
+        <Grid templateColumns="repeat(3, 1fr)" gap={0} >
           <GridItem colSpan={1} display="flex" marginTop={{base:"8px", md: "20px"}}>
             <Box display={{base: "none", md: "block"}}>
               <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
@@ -129,6 +130,7 @@ const Home = () => {
           </Grid>
           
         </Box>
+      </Box>
         
       </main>
       
