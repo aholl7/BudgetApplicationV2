@@ -100,6 +100,8 @@ import {
             boxShadow="0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)"
             p={4}
             marginTop="20px"
+            width={{base: "102%", md: "100%"}}
+            
         >
             <Text fontSize='xl' fontWeight="bold" color={props.color}>{type} Totals</Text>
             

@@ -95,14 +95,14 @@ import {
             marginTop="20px"
         >
            
-           <Grid templateColumns='repeat(3, 1fr)' gap={6} >
-            <GridItem w='80%'>
+           <Grid templateColumns={{base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)'}} gap={6} >
+            <GridItem w={{base: '100%', md: '90%'}}>
                 <StatisticsCard type={"Difference"} frequency={"Monthly"} data={monthlyInc - monthlyExp}/>
             </GridItem>
-            <GridItem w='80%'>
+            <GridItem w={{base: '100%', md: '90%'}}>
                 <StatisticsCard type={"Difference"} frequency={"Semester"} data={semesterInc - semesterExp}/>
             </GridItem>
-            <GridItem w='80%'>
+            <GridItem w={{base: '100%', md: '90%'}}>
                 <StatisticsCard type={"Difference"} frequency={"Academic Year"} data={yearlyInc - yearlyExp}/>
             </GridItem>
            </Grid>

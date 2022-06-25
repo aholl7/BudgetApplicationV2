@@ -52,7 +52,7 @@ const NavBar = (props) => {
                             <Image src={Logo} width={120} height={45} style={{marginTop: "1px"}}/>
                         </Box>
                         <Box marginLeft={{base: "10px", md: "-30px"}}>
-                            <h1 id="logo-text">Money Watcher</h1>
+                            <h1 id={props.colorMode === "light" ? "logo-text-purple" : "logo-text-green-main"}>Money Watcher</h1>
                         </Box>
                     </Flex>
                     <Spacer />
@@ -67,7 +67,7 @@ const NavBar = (props) => {
                         />
                     
                         <IconButton
-                                color='#0ACF83'
+                                color={props.colorMode === 'light' ? "#221266" : "#0ACF83"} 
                                 aria-label='Search database'
                                 icon={<HamburgerIcon />}
                                 ref={btnRef}
@@ -84,16 +84,16 @@ const NavBar = (props) => {
                             
                         >
                             <DrawerOverlay />
-                            <DrawerContent bgColor="#0ACF83" >
+                            <DrawerContent bgColor={props.colorMode === 'light' ? "#221266" : "#0ACF83"} >
                                 
-                            <DrawerCloseButton icon={<HamburgerIcon />} fontSize="14px" marginTop="1px"/>
+                            <DrawerCloseButton icon={<HamburgerIcon />} fontSize="14px" marginTop="1px" color={props.colorMode === 'light' ? "white" : "black"}  />
                             <DrawerHeader>
                                 <Box marginLeft={{base: "20px", md: "30px"}}>
                                     <h1 id="logo-text-white">Money Watcher</h1>
                                 </Box>
                             </DrawerHeader>
 
-                            <DrawerBody textAlign="center" bgColor="#0ACF83"  marginTop="30px">
+                            <DrawerBody textAlign="center" bgColor={props.colorMode === 'light' ? "#221266" : "#0ACF83"}   marginTop="30px">
                                 <Button 
                                     color="#FFFFFF"
                                     fontSize="26px"

@@ -33,7 +33,7 @@ import { GiPayMoney, GiReceiveMoney} from "react-icons/gi";
                 props.data > 0  ? "linear(to-l, green.500, green.400)" : "linear(to-l, yellow.500, yellow.400)" :
                 ""
             }
-            height={{base: "150px", lg: "100px"}} 
+            height={{base: "100px", md: "150px", lg: "100px"}} 
             borderRadius="10px"    
             width="100%"
             boxShadow={props.type === "Difference" ? "0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)" : ""}

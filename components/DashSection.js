@@ -11,7 +11,7 @@ const DashSection = (props) => {
             {props.type === "Expenses" || props.type === "Income" ?
                 (
                     <Box marginTop="20px">
-                        <Grid templateColumns='repeat(3, 1fr)' gap={2}>
+                        <Grid templateColumns={{base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)'}} gap={2}>
                             <GridItem colSpan={1}>
                                 <StatisticsSection uid={props.uid} type={props.type} bg={props.bg} color={props.color} colorMode={props.colorMode}/>
                             </GridItem>

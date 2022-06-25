@@ -62,7 +62,7 @@ const Home = () => {
                             </Box>
                             <MobileNavBar colorMode={colorMode} enableDark={toggleColorMode}/>
                         </Box>
-                        <Box marginTop="65px" marginLeft="20px">
+                        <Box marginTop={{base: "38px", md:"65px"}} marginLeft="auto" marginRight="auto" width="95%" m>
                             <Text fontSize='3xl' fontWeight="bold" color={color}>Dashboard</Text>
 
                             <Box marginTop="40px">
