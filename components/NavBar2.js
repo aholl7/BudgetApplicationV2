@@ -189,7 +189,12 @@ const NavBar = (props) => {
                                 fontSize="26px"
                                 variant="link"
                                 _hover={{ color: "#0ACF83"}}
-                                onClick={(e) => viewDashboard(e)}
+                                onClick={(e) => {
+                                    if(documentTitle != "Dashboard"){
+                                        viewDashboard(e)
+                                    }
+                                    
+                                }}
                             >
                                 Dashboard
                             </Button><br />
@@ -199,7 +204,11 @@ const NavBar = (props) => {
                                 variant="link"
                                 marginTop="30px"
                                 _hover={{ color: "#0ACF83"}}
-                                onClick={(e) => viewOverview(e)}
+                                onClick={(e) => {
+                                    if(documentTitle != "Overview"){
+                                        viewOverview(e)
+                                    }
+                                }}
                             >
                                 Overview
                             </Button><br />

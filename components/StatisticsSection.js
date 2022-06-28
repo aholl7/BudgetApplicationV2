@@ -97,7 +97,7 @@ import {
         <Box 
             bgColor={props.bg}
             borderRadius="5px" 
-            boxShadow="0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)"
+            boxShadow="0px 0.5px 1px 0px rgba(0, 0, 0, 0.5)"
             p={4}
             marginTop="20px"
             width={{base: "102%", md: "100%"}}

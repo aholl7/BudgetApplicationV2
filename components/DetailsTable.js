@@ -7,16 +7,23 @@ import {
     onSnapshot
 } from "firebase/firestore";
 import { 
+    Grid, 
+    GridItem, 
+    Button,
+    Flex,
+    Spacer,
+    Text,
     Box,
     Table,
     Thead,
     Tbody,
+    Tfoot,
     Tr,
     Th,
     Td,
     TableCaption,
     TableContainer,
-} from "@chakra-ui/react";
+  } from "@chakra-ui/react";
 
 const DetailsTable = (props) => {
     const [expenses, setExpenses] = useState([]);
@@ -271,36 +278,43 @@ const DetailsTable = (props) => {
         
     }, [])
       return (
-        <Box>
-            <Box 
-                bgColor={
-                    props.type === "Expenses" && expenses.length === 0 ||
-                    props.type === "Income" && income.length === 0 ? 
-                    "#FFFFFF" : ""
-                }
-            >
-                <h1 
-                    style={{
-                    color: "#0ACF83", 
-                    fontSize: "38px", 
-                    fontWeight: "bold",
-                    marginTop: "55px"
-                    }}
-                >
-                    {props.type === "Expenses" ? "EXPENSES" : 
-                     props.type === "Income" ? "INCOME" : 
-                     props.type === "Totals" ?  "TOTALS" : ""
-                    }
+        <Box
+            borderRadius="5px" 
+            boxShadow="0px 0.5px 1px 0px rgba(0, 0, 0, 0.5)"
+            marginTop="20px"
+            backgroundColor={props.bg}
+            
+        >
+            <Box paddingTop="15px" p={4}>
+                <Flex>
+                    <Box>
+                        <Text 
+                            fontSize='xl' 
+                            fontWeight="bold" 
+                            color={props.color}
+                        >
+                            {props.type}
+                        </Text>
+                    </Box>
+                    <Spacer />
                     
-                </h1>
-
-            <TableContainer width="100%" border="1px solid lightgrey" borderRadius="5px" borderBottomRightRadius="5px" marginTop="30px">
                 
-                <Table variant='simple' bgColor="#FFFFFF" size="lg">
-                {props.type === "Expenses" && expenses.length === 0 ||
-                 props.type === "Income" && income.length === 0 &&
-                    <TableCaption bgColor="#FFFFFF">There are no records to display</TableCaption>
-                }
+                </Flex>
+            </Box>
+            <TableContainer 
+                width="100%" 
+                borderRadius="5px" 
+                
+            >
+                
+                <Table variant='simple' bgColor={props.bg} size="lg">
+                    {props.type === "Expenses" && expenses.length === 0 &&
+                        <TableCaption >There are no records to display</TableCaption>
+                    }
+                    {props.type === "Income" && income.length === 0 &&
+                        <TableCaption>There are no records to display</TableCaption>
+                    }
+                
                 
                     <Thead>
                     <Tr>
@@ -431,7 +445,7 @@ const DetailsTable = (props) => {
         
         
             
-        </Box>
+        
       );
   }
 

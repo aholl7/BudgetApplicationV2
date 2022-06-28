@@ -34,11 +34,11 @@ import { GiPayMoney, GiReceiveMoney} from "react-icons/gi";
                 ""
             }
             height={{base: "100px", md: "150px", lg: "100px"}} 
-            borderRadius="10px"    
+            borderRadius="20px"    
             width="100%"
             boxShadow={props.type === "Difference" ? "0px 0.1px 1px 0px rgba(0, 0, 0, 0.5)" : ""}
         >
-            <Flex marginLeft="20px">
+            <Flex marginLeft={{base: "20px", md: "10px", lg: "20px"}}>
                 
                 {props.type === "Expenses" && (
                     <Box marginTop="35px">
@@ -53,11 +53,12 @@ import { GiPayMoney, GiReceiveMoney} from "react-icons/gi";
                 
                 
                 
-                <Box marginLeft="20px">
+                <Box marginLeft="1px">
                     <Text 
                         fontSize="md" 
                         fontWeight="bold" 
                         marginTop="20px"
+                        width={{base: "100%", md: "70%", lg: "100%"}}
                         color={props.type === "Difference" ? "white" : props.color}
                     >
                         {title}

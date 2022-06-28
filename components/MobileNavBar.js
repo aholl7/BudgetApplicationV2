@@ -98,7 +98,7 @@ const NavBar = (props) => {
                                     color="#FFFFFF"
                                     fontSize="26px"
                                     variant="link"
-                                    _hover={{ color: "#0ACF83"}}
+                                    _hover={{ color: "#FFFFFF"}}
                                     onClick={(e) => viewDashboard(e)}
                                 >
                                     Dashboard
@@ -108,7 +108,7 @@ const NavBar = (props) => {
                                     fontSize="26px"
                                     variant="link"
                                     marginTop="30px"
-                                    _hover={{ color: "#0ACF83"}}
+                                    _hover={{ color: "#FFFFFF"}}
                                     onClick={(e) => viewOverview(e)}
                                 >
                                     Overview
@@ -117,7 +117,7 @@ const NavBar = (props) => {
                                     color="#FFFFFF"
                                     fontSize="26px"
                                     variant="link"
-                                    _hover={{ color: "#0ACF83", bg: "#FFFFFF"}}
+                                    _hover={{ color: "#FFFFFF"}}
                                     marginTop="30px"
                                     onClick={(e) => signOut(e)}
                                 >
