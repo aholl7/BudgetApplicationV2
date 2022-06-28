@@ -29,9 +29,9 @@ export const AuthProvider = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       if (user && user.emailVerified) {
           
-        //getUserInfo(user.uid)
+        getUserInfo(user.uid)
         setCurrentUser(user)
-        setLoading(false);
+        //setLoading(false);
       } else {
         setCurrentUser(null)
         setLoading(false);
