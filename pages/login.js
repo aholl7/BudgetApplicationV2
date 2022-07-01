@@ -15,7 +15,10 @@ import {
     Box,
     Alert,
     AlertIcon,
-    AlertDescription
+    AlertDescription,
+    LightMode, 
+    HStack,
+    useColorMode
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
@@ -31,7 +34,7 @@ const Login = () => {
     
     const [errorTriggered, setErrorTriggered] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    
+    const { colorMode, toggleColorMode } = useColorMode();
     const submitInfo = async (data) => {
         
         /*
@@ -93,13 +96,15 @@ const Login = () => {
     }
     
     useEffect(()=>{
+        
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if (user && user.emailVerified) {
                 const url = "/dashboard";
                 window.location.href = url;
             } 
           });
     },[]);
+
     return (
       <Box>
         <Head>
@@ -109,7 +114,17 @@ const Login = () => {
         </Head>
         
         <main>
-          <Grid templateColumns="repeat(3, 1fr)" w={{ base: "90%", sm: "98%", md: "100%" }} marginLeft="auto" marginRight="auto" gap={0}>
+            
+          <Grid 
+            templateColumns="repeat(3, 1fr)" 
+            w={{ base: "90%", sm: "98%", md: "100%" }} 
+            marginLeft="auto" 
+            marginRight="auto" 
+            gap={0}
+            color="black"
+            
+            
+        >
             <GridItem  
                 colSpan={1} 
                 display={{ base: "none", md: "block" }} 
@@ -163,9 +178,10 @@ const Login = () => {
                         
                             <Box width="100%">
                                 
-                                <FormControl marginTop="15px" isInvalid={errors.email}>
+                                <FormControl marginTop="15px" isInvalid={errors.email} >
                                     <FormLabel>Email</FormLabel>
                                     <Input 
+                                        border="1px solid black"
                                         id="login_email" 
                                         type="email" 
                                         {...register("email", {
@@ -184,6 +200,7 @@ const Login = () => {
                                 
                                 <FormControl marginTop="15px" isInvalid={errors.password}>
                                     <FormLabel>Password</FormLabel>
+                                    
                                     <Input 
                                         id="login_password" 
                                         type="password" 
@@ -193,6 +210,7 @@ const Login = () => {
                                         })}
                                         
                                     />
+                                    
                                     <FormErrorMessage>
                                         {errors.password && errors.password.message}
                                     </FormErrorMessage>
@@ -212,8 +230,9 @@ const Login = () => {
                         >
                             Login
                         </Button>
+                        
                     </form>
-                    
+                  
                     <Box fontSize="15px" fontWeight = "bold" marginTop ="20px" color="grey" >
                         <p>Don&apos;t have an account yet? <Link href="/signup"><a style={{color: "blue"}}>Sign Up</a></Link></p>
                     </Box>

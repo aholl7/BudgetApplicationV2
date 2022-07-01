@@ -1,10 +1,26 @@
-import "../styles/globals.css"
-import theme from '../js/theme'
-import { ColorModeScript } from '@chakra-ui/react'
-import { ChakraProvider } from "@chakra-ui/react"
-import { AuthProvider } from "../authentication/AuthContext"
+
+import "../styles/globals.css";
+import React, { useEffect, useState} from "react"
+import theme from '../js/theme';
+import { ColorModeScript, LightMode } from '@chakra-ui/react';
+import { ChakraProvider} from "@chakra-ui/react";
+import { AuthProvider } from "../authentication/AuthContext";
+//import dynamic from 'next/dynamic'
+
 function MyApp({ Component, pageProps }) {
-  return (
+
+ 
+  if(!pageProps.protected){
+    return (
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    )
+
+  }else{
+    
+    return (
+    
     <AuthProvider>
       <ChakraProvider>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
@@ -13,6 +29,8 @@ function MyApp({ Component, pageProps }) {
     </AuthProvider>
     
   )
+  }
+  
 }
 
 export default MyApp;

@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user && user.emailVerified) {
-          
         getUserInfo(user.uid)
         setCurrentUser(user)
         //setLoading(false);

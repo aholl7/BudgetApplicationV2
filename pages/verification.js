@@ -3,12 +3,20 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { Button, Box } from "@chakra-ui/react"
 import VerificationImage from "../public/images/verification-image.png";
-import {sendEmailVerification } from "firebase/auth";
+import {sendEmailVerification, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../js/firebase.js";
 
 const Verification = () => {
-    useEffect(()=>{
-      
+    useEffect(()=> {
+      onAuthStateChanged(auth, (user) => {
+        if (user && user.emailVerified) {
+          const url = "/dashboard";
+          window.location.href = url;
+        }else if(!user){
+          const url = "/login";
+          window.location.href = url;
+        }
+      })
     },[]);
     const verifyEmail = () => {
         e.preventDefault();
@@ -22,12 +30,16 @@ const Verification = () => {
 
       const openLogin = (e) => {
         e.preventDefault();
-        const url = "/login";
-        window.location.href = url;
+        auth.signOut();
+        setTimeout(() => {
+          const url = "/login";
+          window.location.href = url;
+        }, 2000);
+        
       }
     
       
-      
+    
     return (
       <Box>
         <Head>

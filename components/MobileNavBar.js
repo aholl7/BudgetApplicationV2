@@ -23,6 +23,7 @@ const NavBar = (props) => {
     const btnRef = useRef();
     const signOut = (e) => {
         e.preventDefault();
+        
         props.auth.signOut();
         const url = "/login";
         window.location.href = url;

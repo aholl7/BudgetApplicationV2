@@ -44,8 +44,6 @@ const SignUp = () => {
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
           // ...
-            const url = "/verification";
-            window.location.href = url;
         });
       };
 
@@ -59,16 +57,22 @@ const SignUp = () => {
             data.email,
             data.password
           ).then(() => {
+            
             verifyEmail();
             //const ref = collection(db, "users");
             try {
-              const auth = getAuth();
               const user = auth.currentUser;
               const docRef = setDoc(doc(db, "users", user.uid), {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email
               });
+              setTimeout(() => {
+                const url = "/verification";
+                window.location.href = url;
+              }, 2000)
+              
+              
             } catch (e) {
               console.error("Error adding document: ", e);
             }
@@ -76,7 +80,7 @@ const SignUp = () => {
         } catch (error) {
           window.alert(error.message);
         }
-        auth.signOut();
+        
         
       }
 

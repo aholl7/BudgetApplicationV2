@@ -18,6 +18,7 @@ import MobileNavBar from "../components/MobileNavBar";
 import AuthRoute from "../authentication/AuthRoute";
 import { AuthContext } from "../authentication/AuthContext.js";
 
+
 const Home = () => {
     const { userInfo } = useContext(AuthContext);
 
@@ -40,7 +41,7 @@ const Home = () => {
                 <main style={{position: "relative"}}>
                 <Grid templateColumns='repeat(5, 1fr)' gap={0}>
                     <GridItem colSpan={1} display={{base: "none", md: "block"}} h="100vh" bg={bgNav}>
-                        <NavBar bg={bgNav} color={navColor} colorMode={colorMode}/>
+                        <NavBar auth={auth} bg={bgNav} color={navColor} colorMode={colorMode} colorChange={useColorMode}/>
                     </GridItem>
                     <GridItem colSpan={{base: 5, md: 4}}  h="100vh" bg={bg} overflowY="scroll">
                         <Box>
@@ -66,6 +67,7 @@ const Home = () => {
                             <Text fontSize='3xl' fontWeight="bold" color={color}>Dashboard</Text>
 
                             <Box marginTop="40px">
+                            
                                 <DashSection 
                                     uid={userInfo.uid} 
                                     type={"Difference"} 
@@ -101,6 +103,14 @@ const Home = () => {
         </AuthRoute>
     )
     
+}
+
+export async function getStaticProps() {
+    return {
+      props: {
+        protected: true,
+      },
+    }
 }
 
 export default Home;

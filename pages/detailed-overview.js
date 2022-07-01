@@ -107,4 +107,12 @@ const Overview = () => {
     
 }
 
+export async function getStaticProps() {
+    return {
+      props: {
+        protected: true,
+      },
+    }
+}
+
 export default Overview;

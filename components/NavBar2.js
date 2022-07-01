@@ -16,12 +16,12 @@ import {
     IconButton, 
     useDisclosure,
   } from '@chakra-ui/react';
+import Link from "next/link";
 import Image from "next/image"
 import Logo from "../public/images/logo.png";
 
 const NavBar = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [documentTitle, setDocumentTitle] = useState(null);
     const btnRef = useRef();
     const signOut = (e) => {
         e.preventDefault();
@@ -42,9 +42,7 @@ const NavBar = (props) => {
         window.location.href = url;
     }
 
-    useEffect(() =>{
-        setDocumentTitle(document.title);
-    }, [documentTitle])
+    
 
     
     return (
@@ -60,15 +58,18 @@ const NavBar = (props) => {
                     <Box 
                         width="100%" 
                         borderRight={
-                            documentTitle === "Dashboard" ?
+                            document.title === "Dashboard" ?
                                 props.colorMode === "light" ?  
                                     "3px solid #221266" : "3px solid #0ACF83"
                                 : ""
                         }
                 >
+                    <Link href="/dashboard">
+    
+  
                             <Button 
                                 color={
-                                    documentTitle === "Dashboard" ?
+                                    document.title === "Dashboard" ?
                                     props.colorMode === "light" ?  
                                         "#221266" : "#0ACF83"
                                     : props.color
@@ -80,28 +81,29 @@ const NavBar = (props) => {
                                     "#221266" : "#0ACF83"
                                 }}
                                 justifyContent="flex-start"
-                                onClick={(e) => viewDashboard(e)}
                                 leftIcon={<AiFillHome />}
                                 fontSize="18px"
                                 fontWeight="medium"
                             >
                                 Dashboard
                             </Button>
+                        </Link>
                     </Box>
                     <Box 
                         width="100%" 
                         marginTop="25px" 
                         borderRight={
-                            documentTitle === "Overview" ?
+                            document.title === "Overview" ?
                                 props.colorMode === "light" ?  
                                     "3px solid #221266" : "3px solid #0ACF83"
                                 : ""
                         }
                     >
+                        <Link href="/detailed-overview">
                             
                             <Button 
                                 color={
-                                    documentTitle === "Overview" ?
+                                    document.title === "Overview" ?
                                     props.colorMode === "light" ?  
                                         "#221266" : "#0ACF83"
                                     : props.color
@@ -113,13 +115,13 @@ const NavBar = (props) => {
                                     "#221266" : "#0ACF83"
                                 }}
                                 justifyContent="flex-start"
-                                onClick={(e) => viewOverview(e)}
                                 leftIcon={<AiFillSignal />}
                                 fontSize="18px"
                                 fontWeight="medium"
                             >
                             Overview
                         </Button>
+                        </Link>
                     </Box>
                     <Box width="100%" marginTop="25px" borderRight="">
                             

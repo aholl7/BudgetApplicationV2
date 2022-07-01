@@ -22,7 +22,7 @@ const Home = () => {
     e.preventDefault();
     const user = auth.currentUser;
     
-    if (user) {
+    if (user && user.emailVerified) {
       const url = "/dashboard";
       window.location.href = url;
     } else {
