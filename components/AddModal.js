@@ -224,7 +224,7 @@ const AddModal = (props) => {
                         {...register("amount", {
                             required: "Required Field",
                             pattern: {
-                                value: /(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{2})?$/,
+                                value: /(?=.*?\d)^(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{2})?$/,
                                 message: "Please enter only numbers",
                             },
                             

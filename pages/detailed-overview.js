@@ -41,7 +41,7 @@ const Overview = () => {
                 <main style={{position: "relative"}}>
                 <Grid templateColumns='repeat(5, 1fr)' gap={0}>
                     <GridItem colSpan={1} display={{base: "none", md: "block"}} h="100vh" bg={bgNav}>
-                        <NavBar bg={bgNav} color={navColor} colorMode={colorMode}/>
+                        <NavBar auth={auth} bg={bgNav} color={navColor} colorMode={colorMode}/>
                     </GridItem>
                     <GridItem colSpan={{base: 5, md: 4}}  h="100vh" bg={bg} overflowY="scroll">
                         <Box>

@@ -163,7 +163,7 @@ const DetailsTable = (props) => {
                             ...doc.data()
                         });
                         
-                    }else if(doc.data().frequency === "Yearly"){
+                    }else if(doc.data().frequency === "Academic Year"){
                         m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
                         s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                         y += parseFloat(doc.data().amount);
@@ -176,10 +176,12 @@ const DetailsTable = (props) => {
                             ...doc.data()
                         });
                     }
+
+                    
                     
                 })
                 
-               
+                
                 var monthlyAmount = m.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 var semesterAmount = s.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 var yearlyAmount = y.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -239,7 +241,7 @@ const DetailsTable = (props) => {
                             ...doc.data()
                         });
                         
-                    }else if(doc.data().frequency === "Yearly"){
+                    }else if(doc.data().frequency === "Academic Year"){
                         m += parseFloat((parseFloat(doc.data().amount)/8).toFixed(2));
                         s += parseFloat((parseFloat(doc.data().amount)/2).toFixed(2));
                         y += parseFloat(doc.data().amount);
