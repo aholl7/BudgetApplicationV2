@@ -64,6 +64,10 @@ a {
   animation: spin 2s linear infinite;
 }
 
+#fg-bg-light{
+  background-color: #F9F9F9;
+}
+
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }

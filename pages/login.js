@@ -18,8 +18,11 @@ import {
     AlertDescription,
     LightMode, 
     HStack,
-    useColorMode
-} from "@chakra-ui/react"
+    useColorMode,
+    IconButton,
+    Text
+} from "@chakra-ui/react";
+import { HamburgerIcon, MoonIcon } from '@chakra-ui/icons';
 import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { auth } from "../js/firebase.js";
@@ -35,6 +38,7 @@ const Login = () => {
     const [errorTriggered, setErrorTriggered] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const { colorMode, toggleColorMode } = useColorMode();
+    
     const submitInfo = async (data) => {
         
         /*
@@ -160,11 +164,41 @@ const Login = () => {
               
             </GridItem>
   
-            <GridItem colSpan={{base: 3, md: 2}} bg = "white">
+            <GridItem colSpan={{base: 3, md: 2}} >
+                <Box 
+                    float="right" 
+                    marginTop="20px" 
+                    marginRight="40px" 
+                    display={{base: "none", md: "block"}}
+                >
+                    <IconButton
+                        color={colorMode === 'light' ? 'gray.400' : 'white'}
+                        icon={<MoonIcon />}
+                        onClick={toggleColorMode}
+                        fontSize="20px"
+                        display={{base: "none", md: "block"}}
+                        
+                    />
+                                
+                </Box>
                 <Box marginLeft={{base: "", sm: "130px"}}>
                     <Box marginTop="150px">
-                        <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Welcome Back!</h1>
-                        <p style={{fontSize: "15px", fontWeight: "bold", marginTop: "10px", color: "grey", width: "70%"}}>Sign in to continue.</p>
+                        <Text 
+                            fontSize="25px"
+                            fontWeight="bold"
+                            color={colorMode === 'light' ? 'black' : 'white'}
+                        >
+                            Welcome Back!
+                        </Text>
+                        <Text 
+                            fontSize="15px"
+                            fontWeight="bold"
+                            marginTop="10px"
+                            color="grey"
+                            width="70%"
+                        >
+                            Sign in to continue.
+                        </Text>
                     </Box>
                     <form onSubmit={handleSubmit(submitInfo)}>
                         
@@ -179,7 +213,11 @@ const Login = () => {
                             <Box width="100%">
                                 
                                 <FormControl marginTop="15px" isInvalid={errors.email} >
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel
+                                        color={colorMode === 'light' ? 'black' : 'white'}
+                                    >
+                                        Email
+                                    </FormLabel>
                                     <Input 
                                         border="1px solid black"
                                         id="login_email" 
@@ -199,7 +237,11 @@ const Login = () => {
                                 </FormControl>
                                 
                                 <FormControl marginTop="15px" isInvalid={errors.password}>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel
+                                        color={colorMode === 'light' ? 'black' : 'white'}
+                                    >
+                                        Password
+                                    </FormLabel>
                                     
                                     <Input 
                                         id="login_password" 

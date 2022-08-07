@@ -13,7 +13,11 @@ import {
     FormErrorMessage,
     Input, 
     Box,
+    useColorMode,
+    IconButton,
+    Text
 } from "@chakra-ui/react";
+import { HamburgerIcon, MoonIcon } from '@chakra-ui/icons';
 import { useForm } from "react-hook-form";
 import {
     collection,
@@ -37,7 +41,7 @@ const SignUp = () => {
         handleSubmit,
         formState: { errors },
       } = useForm({});
-
+      const { colorMode, toggleColorMode } = useColorMode();
       const password = watch("password");
 
       const verifyEmail = () => {
@@ -46,7 +50,6 @@ const SignUp = () => {
           // ...
         });
       };
-
       const submitInfo = async (data) => {
           
 
@@ -150,7 +153,24 @@ const SignUp = () => {
               
             </GridItem>
   
-            <GridItem colSpan={{base: 3, md: 2}} bg = "white">
+            <GridItem colSpan={{base: 3, md: 2}}>
+              <Box 
+                  float="right" 
+                  marginTop="20px" 
+                  marginRight="40px" 
+                  display={{base: "none", md: "block"}}
+              >
+                  <IconButton
+                      color={colorMode === 'light' ? 'gray.400' : 'white'}
+                      icon={<MoonIcon />}
+                      onClick={toggleColorMode}
+                      fontSize="20px"
+                      display={{base: "none", md: "block"}}
+                      
+                  />
+                              
+              </Box>
+              
                 <Box marginLeft={{base: "", sm: "130px"}}>
                     <Box marginTop={{base: "20px", sm: "60px"}}>
                         <h1 style={{fontSize: "25px", fontWeight: "bold"}}>Register</h1>
